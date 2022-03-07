@@ -1,0 +1,15 @@
+.rendu {
+  color:green;
+}
+
+.nonRendu {
+  color:red;
+  background-color: yellow;
+  border: 2px dashed orange;
+}
+
+.form {
+  display:flex;
+  flex-direction: column;
+  margin:5px;
+}

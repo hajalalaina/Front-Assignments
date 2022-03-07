@@ -1,5 +1,24 @@
+<form ngForm #assignmentForm (submit)="onSubmit()" class="form">
+  <mat-form-field>
+    <input matInput placeholder="Nom de l'assignment">
+  </mat-form-field>
+
+  <button mat-stroked-button
+         color="primary">
+    Ajouter un devoir
+  </button>
+</form>
+
+
 <h2>Liste des devoirs :</h2>
-<p *ngFor="let assignment of assignments; let i=index">
-  {{i+1}} - {{assignment.nom}}, date de rendu le {{assignment.dateDeRendu}},
-  rendu : {{assignment.rendu}}
-</p>
+<div *ngFor="let assignment of assignments">
+  <p *ngIf="assignment.rendu; else nonsoumis" appRendu>
+      Devoir intitulé {{assignment.nom}}, rendu le
+                        {{assignment.dateDeRendu}}.
+  </p>
+  <ng-template #nonsoumis>
+    <p appNonRendu>Le devoir {{assignment.nom}} n'a pas encore été rendu.
+    Il est à rendre pour le {{assignment.dateDeRendu}}</p>
+  </ng-template>
+
+</div>

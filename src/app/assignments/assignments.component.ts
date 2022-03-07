@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./assignments.component.css'],
 })
 export class AssignmentsComponent implements OnInit {
+  boutonInactif = true;
+
   assignments = [
     {
       nom: 'Devoir angular de Mr Buffa',
@@ -24,8 +26,16 @@ export class AssignmentsComponent implements OnInit {
     },
 ];
 
-  constructor() {}
+  constructor() {
+    setTimeout(() => {
+      this.boutonInactif = false;
+    }, 3000 )
+  }
 
   // appelé après le constructeur et AVANT l'affichage du composant
   ngOnInit(): void {}
+
+  onSubmit() {
+    console.log("Formulaire soumis");
+  }
 }

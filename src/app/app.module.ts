@@ -6,16 +6,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 
 import { AssignmentsComponent } from './assignments/assignments.component';
+import { RenduDirective } from './shared/rendu.directive';
+import { NonRenduDirective } from './shared/non-rendu.directive';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    AssignmentsComponent
+    AssignmentsComponent,
+    RenduDirective,
+    NonRenduDirective
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule, MatButtonModule, MatIconModule, MatDividerModule
+    BrowserModule, FormsModule,
+    BrowserAnimationsModule, MatButtonModule, MatIconModule, MatDividerModule,
+    MatFormFieldModule, MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
