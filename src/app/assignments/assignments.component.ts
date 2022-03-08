@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from './assignment.model';
 
 @Component({
@@ -11,36 +12,23 @@ export class AssignmentsComponent implements OnInit {
   assignmentSelectionne?: Assignment;
   formVisible = false;
 
+  assignments:Assignment[] = [];
 
-  assignments:Assignment[] = [
-    {
-      nom: 'Devoir angular de Mr Buffa',
-      dateDeRendu: new Date("2022-03-28"),
-      rendu:false
-    },
-    {
-      nom: 'Devoir Oracle de Mr Mopolo',
-      dateDeRendu: new Date("2022-01-22"),
-      rendu:true
-    },
-    {
-      nom: 'Devoir Grails de Mr Galli',
-      dateDeRendu: new Date("2022-04-01"),
-      rendu:false
-    },
-];
 
-  constructor() {
-    /*
-    setTimeout(() => {
-      if(this.assignmentSelectionne)
-        this.assignmentSelectionne.nom = "CHANGE !!!!!!!!";
-    }, 5000 )
-    */
-  }
+  constructor(private assignmentsService:AssignmentsService) {}
 
   // appelé après le constructeur et AVANT l'affichage du composant
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log("Dans ngOnInit, appelé avant l'affichage")
+    // demander les données au service de gestion des assignments...
+    this.assignmentsService.getAssignments()
+    .subscribe(assignments => {
+      console.log("données arrivées");
+      this.assignments = assignments;
+    });
+
+    console.log("Après l'appel au service");
+  }
 
 
   assignmentClique(assignment:Assignment) {
@@ -53,9 +41,15 @@ export class AssignmentsComponent implements OnInit {
 
   onNouvelAssignment(event:Assignment) {
     console.log("Evenement en provenance du fils arrivé");
-    this.assignments.push(event);
+    //this.assignments.push(event);
 
-    this.formVisible = false;
+    this.assignmentsService.addAssignment(event)
+    .subscribe(message => {
+      console.log(message);
+
+      // je ne peux afficher la liste que quand l'ajout a réellement été fait
+      this.formVisible = false;
+    })
   }
 
   onDeleteAssignment(event:Assignment) {
