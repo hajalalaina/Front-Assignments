@@ -53,9 +53,9 @@ export class AssignmentsComponent implements OnInit {
   }
 
   onDeleteAssignment(event:Assignment) {
-    const pos = this.assignments.indexOf(event);
-
-    // position puis nombre d'objets à supprimer dans le tableau
-    this.assignments.splice(pos, 1);
+    this.assignmentsService.deleteAssignment(event)
+    .subscribe(message => {
+      console.log(message);
+    })
   }
 }
