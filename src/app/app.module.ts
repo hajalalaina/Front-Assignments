@@ -21,6 +21,23 @@ import { NonRenduDirective } from './shared/non-rendu.directive';
 import { FormsModule } from '@angular/forms';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
+
+import { Routes, RouterModule } from '@angular/router';
+
+const routes:Routes = [
+  {
+    path:"",
+    component: AssignmentsComponent
+  },
+  {
+    path:"home",
+    component: AssignmentsComponent
+  },
+  {
+    path:"add",
+    component: AddAssignmentComponent
+  },
+]
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +51,8 @@ import { AddAssignmentComponent } from './assignments/add-assignment/add-assignm
     BrowserModule, FormsModule,
     BrowserAnimationsModule, MatButtonModule, MatIconModule, MatDividerModule,
     MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule,
-    MatListModule, MatCardModule, MatCheckboxModule
+    MatListModule, MatCardModule, MatCheckboxModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

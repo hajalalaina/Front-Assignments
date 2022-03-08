@@ -10,7 +10,6 @@ import { Assignment } from './assignment.model';
 export class AssignmentsComponent implements OnInit {
   boutonInactif = true;
   assignmentSelectionne?: Assignment;
-  formVisible = false;
 
   assignments:Assignment[] = [];
 
@@ -33,23 +32,6 @@ export class AssignmentsComponent implements OnInit {
 
   assignmentClique(assignment:Assignment) {
     this.assignmentSelectionne = assignment;
-  }
-
-  onAddAssignmentBtnClick() {
-    this.formVisible = true;
-  }
-
-  onNouvelAssignment(event:Assignment) {
-    console.log("Evenement en provenance du fils arrivé");
-    //this.assignments.push(event);
-
-    this.assignmentsService.addAssignment(event)
-    .subscribe(message => {
-      console.log(message);
-
-      // je ne peux afficher la liste que quand l'ajout a réellement été fait
-      this.formVisible = false;
-    })
   }
 
   onDeleteAssignment(event:Assignment) {
