@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Assignment } from './assignment.model';
 
 @Component({
   selector: 'app-assignments',
@@ -7,21 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AssignmentsComponent implements OnInit {
   boutonInactif = true;
+  // Champ de formulaire
+  nomAssignment!:string;
+  dateDeRendu!:Date;
 
-  assignments = [
+  assignments:Assignment[] = [
     {
       nom: 'Devoir angular de Mr Buffa',
-      dateDeRendu: "2022-03-28",
+      dateDeRendu: new Date("2022-03-28"),
       rendu:false
     },
     {
       nom: 'Devoir Oracle de Mr Mopolo',
-      dateDeRendu: "2022-01-22",
+      dateDeRendu: new Date("2022-01-22"),
       rendu:true
     },
     {
       nom: 'Devoir Grails de Mr Galli',
-      dateDeRendu: "2022-04-01",
+      dateDeRendu: new Date("2022-04-01"),
       rendu:false
     },
 ];
@@ -36,6 +40,14 @@ export class AssignmentsComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    console.log("Formulaire soumis");
+    console.log("nom = " + this.nomAssignment + " date de rendu = " + this.dateDeRendu);
+
+    let newAssignment = new Assignment();
+    newAssignment.nom = this.nomAssignment;
+    newAssignment.dateDeRendu = this.dateDeRendu;
+    newAssignment.rendu = false;
+
+    // on l'ajoute au tableau
+    this.assignments.push(newAssignment);
   }
 }
