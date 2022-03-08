@@ -8,9 +8,9 @@ import { Assignment } from './assignment.model';
 })
 export class AssignmentsComponent implements OnInit {
   boutonInactif = true;
-  // Champ de formulaire
-  nomAssignment!:string;
-  dateDeRendu!:Date;
+  assignmentSelectionne?: Assignment;
+  formVisible = false;
+
 
   assignments:Assignment[] = [
     {
@@ -31,23 +31,30 @@ export class AssignmentsComponent implements OnInit {
 ];
 
   constructor() {
+    /*
     setTimeout(() => {
-      this.boutonInactif = false;
-    }, 3000 )
+      if(this.assignmentSelectionne)
+        this.assignmentSelectionne.nom = "CHANGE !!!!!!!!";
+    }, 5000 )
+    */
   }
 
   // appelé après le constructeur et AVANT l'affichage du composant
   ngOnInit(): void {}
 
-  onSubmit() {
-    console.log("nom = " + this.nomAssignment + " date de rendu = " + this.dateDeRendu);
 
-    let newAssignment = new Assignment();
-    newAssignment.nom = this.nomAssignment;
-    newAssignment.dateDeRendu = this.dateDeRendu;
-    newAssignment.rendu = false;
+  assignmentClique(assignment:Assignment) {
+    this.assignmentSelectionne = assignment;
+  }
 
-    // on l'ajoute au tableau
-    this.assignments.push(newAssignment);
+  onAddAssignmentBtnClick() {
+    this.formVisible = true;
+  }
+
+  onNouvelAssignment(event:Assignment) {
+    console.log("Evenement en provenance du fils arrivé");
+    this.assignments.push(event);
+
+    this.formVisible = false;
   }
 }

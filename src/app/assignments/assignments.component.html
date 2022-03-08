@@ -1,30 +1,27 @@
-<form ngForm #assignmentForm (submit)="onSubmit(); assignmentForm.reset()" class="form">
-  <mat-form-field>
-    <input matInput placeholder="Nom de l'assignment" [(ngModel)]="nomAssignment" name="nom">
-  </mat-form-field>
+<app-add-assignment *ngIf="formVisible" (nouvelAssignment)="onNouvelAssignment($event)"></app-add-assignment>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="dateDeRendu" name="date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
 
-  <button mat-stroked-button color="primary">
-    Ajouter un devoir
+<main *ngIf="!formVisible" class="container">
+  <button mat-flat-button color="accent"
+          (click)="onAddAssignmentBtnClick()"
+          class="ajouterBtn"
+  >
+          Ajouter Assignment
   </button>
-</form>
 
+  <h2>Liste des devoirs :</h2>
+  <mat-list *ngFor="let assignment of assignments">
+    <h3 mat-subheader>{{assignment.dateDeRendu | date:"dd/MM/yy"}}</h3>
+    <mat-list-item (click)="assignmentClique(assignment)">
+      <p *ngIf="assignment.rendu; else nonsoumis" appRendu>
+        Devoir intitulé {{assignment.nom}}.
+      </p>
+      <ng-template #nonsoumis>
+        <p appNonRendu>Le devoir {{assignment.nom}} n'a pas encore été rendu.</p>
+      </ng-template>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
 
-<h2>Liste des devoirs :</h2>
-<div *ngFor="let assignment of assignments">
-  <p *ngIf="assignment.rendu; else nonsoumis" appRendu>
-      Devoir intitulé {{assignment.nom}}, rendu le
-                        {{assignment.dateDeRendu}}.
-  </p>
-  <ng-template #nonsoumis>
-    <p appNonRendu>Le devoir {{assignment.nom}} n'a pas encore été rendu.
-    Il est à rendre pour le {{assignment.dateDeRendu}}</p>
-  </ng-template>
-
-</div>
+  <app-assignment-detail [assignmentTransmis]="assignmentSelectionne"></app-assignment-detail>
+</main>
