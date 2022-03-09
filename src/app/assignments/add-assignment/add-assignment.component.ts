@@ -22,6 +22,7 @@ export class AddAssignmentComponent implements OnInit {
     );
 
     let newAssignment = new Assignment();
+    newAssignment.id = Math.round(Math.random()*10000000);
     newAssignment.nom = this.nomAssignment;
     newAssignment.dateDeRendu = this.dateDeRendu;
     newAssignment.rendu = false;
@@ -32,6 +33,7 @@ export class AddAssignmentComponent implements OnInit {
 
       // il va falloir naviguer (demander au router) d'afficher à nouveau la liste
       // en gros, demander de naviguer vers /home
+      // ON FERA PLUS TARD
     })
   }
 }

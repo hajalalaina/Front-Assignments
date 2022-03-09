@@ -37,6 +37,10 @@ const routes:Routes = [
     path:"add",
     component: AddAssignmentComponent
   },
+  {
+    path:"assignment/:id",
+    component: AssignmentDetailComponent
+  }
 ]
 @NgModule({
   declarations: [

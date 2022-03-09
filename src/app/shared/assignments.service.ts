@@ -10,16 +10,19 @@ import { LoggingService } from './logging.service';
 export class AssignmentsService {
   assignments:Assignment[] = [
     {
+      id:1,
       nom: 'Devoir angular de Mr Buffa',
       dateDeRendu: new Date("2022-03-28"),
       rendu:false
     },
     {
+      id:2,
       nom: 'Devoir Oracle de Mr Mopolo',
       dateDeRendu: new Date("2022-01-22"),
       rendu:true
     },
     {
+      id:3,
       nom: 'Devoir Grails de Mr Galli',
       dateDeRendu: new Date("2022-04-01"),
       rendu:false
