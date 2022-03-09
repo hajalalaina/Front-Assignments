@@ -30,8 +30,8 @@ export class AddAssignmentComponent implements OnInit {
     newAssignment.rendu = false;
 
     this.assignmentsService.addAssignment(newAssignment)
-    .subscribe(message => {
-      console.log(message);
+    .subscribe(reponse => {
+      console.log(reponse.message);
 
       // il va falloir naviguer (demander au router) d'afficher à nouveau la liste
       // en gros, demander de naviguer vers /home
