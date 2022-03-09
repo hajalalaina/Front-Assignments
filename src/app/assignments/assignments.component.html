@@ -10,7 +10,7 @@
     <nav>
       <a href="/assignment/{{assignment.id}}">
         <h3 mat-subheader>{{assignment.dateDeRendu | date:"dd/MM/yy"}}</h3>
-        <mat-list-item (click)="assignmentClique(assignment)">
+        <mat-list-item>
           <p *ngIf="assignment.rendu; else nonsoumis" appRendu>
             Devoir intitulé {{assignment.nom}}.
           </p>
@@ -22,7 +22,4 @@
       </a>
     </nav>
   </mat-list>
-
-  <app-assignment-detail [assignmentTransmis]="assignmentSelectionne" (deleteAssignment)="onDeleteAssignment($event)">
-  </app-assignment-detail>
 </main>

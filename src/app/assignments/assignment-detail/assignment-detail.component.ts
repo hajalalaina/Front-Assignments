@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { Assignment } from '../assignment.model';
 
@@ -8,12 +9,25 @@ import { Assignment } from '../assignment.model';
   styleUrls: ['./assignment-detail.component.css']
 })
 export class AssignmentDetailComponent implements OnInit {
-  @Input() assignmentTransmis?:Assignment;
-  @Output() deleteAssignment = new EventEmitter<Assignment>();
+  assignmentTransmis?:Assignment;
 
-  constructor(private assignmentsService:AssignmentsService) { }
+  constructor(private assignmentsService:AssignmentsService,
+              private route:ActivatedRoute, private router:Router) { }
 
   ngOnInit(): void {
+    // on va récupérer l'id dans l'URL,
+    // le + permet de forcer en number (au lieu de string)
+    const id = +this.route.snapshot.params['id'];
+    this.getAssignment(id);
+  }
+
+  getAssignment(id:number) {
+    // on demande au service de gestion des assignment,
+    // l'assignment qui a cet id !
+    this.assignmentsService.getAssignment(id)
+    .subscribe(assignment => {
+      this.assignmentTransmis = assignment;
+    })
   }
 
   onAssignmentRendu() {
@@ -23,12 +37,20 @@ export class AssignmentDetailComponent implements OnInit {
       this.assignmentsService.updateAssignment(this.assignmentTransmis)
       .subscribe(message => {
         console.log(message);
+        // et on navigue vers la page d'accueil pour afficher la liste
+        this.router.navigate(["/home"]);
       })
     }
   }
 
   onDelete() {
-    this.deleteAssignment.emit(this.assignmentTransmis);
-    this.assignmentTransmis = undefined;
+    if(! this.assignmentTransmis) return;
+
+    this.assignmentsService.deleteAssignment(this.assignmentTransmis)
+    .subscribe(message => {
+      console.log(message);
+      // et on navigue vers la page d'accueil pour afficher la liste
+      this.router.navigate(["/home"]);
+    })
   }
 }

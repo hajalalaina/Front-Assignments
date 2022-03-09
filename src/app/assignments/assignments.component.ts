@@ -8,11 +8,7 @@ import { Assignment } from './assignment.model';
   styleUrls: ['./assignments.component.css'],
 })
 export class AssignmentsComponent implements OnInit {
-  boutonInactif = true;
-  assignmentSelectionne?: Assignment;
-
   assignments:Assignment[] = [];
-
 
   constructor(private assignmentsService:AssignmentsService) {}
 
@@ -27,17 +23,5 @@ export class AssignmentsComponent implements OnInit {
     });
 
     console.log("Après l'appel au service");
-  }
-
-
-  assignmentClique(assignment:Assignment) {
-    this.assignmentSelectionne = assignment;
-  }
-
-  onDeleteAssignment(event:Assignment) {
-    this.assignmentsService.deleteAssignment(event)
-    .subscribe(message => {
-      console.log(message);
-    })
   }
 }
