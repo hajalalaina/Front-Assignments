@@ -24,6 +24,7 @@ import { AddAssignmentComponent } from './assignments/add-assignment/add-assignm
 
 import { Routes, RouterModule } from '@angular/router';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes:Routes = [
   {
@@ -44,7 +45,8 @@ const routes:Routes = [
   },
   {
     path:"assignment/:id/edit",
-    component: EditAssignmentComponent
+    component: EditAssignmentComponent,
+    canActivate: [AuthGuard]
   }
 ]
 @NgModule({
