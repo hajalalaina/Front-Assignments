@@ -16,3 +16,11 @@
 .ajouterBtn {
   align-self: flex-end;
 }
+
+table {
+  width: 100%;
+}
+
+.mat-column-id {
+  color:red;
+}

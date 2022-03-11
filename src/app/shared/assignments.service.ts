@@ -18,16 +18,16 @@ export class AssignmentsService {
   }
 
 
-  url = "http://localhost:8010/api/assignments";
-  //url= "https://mbdsmadagascar2022api.herokuapp.com/api/assignments";
+  //url = "http://localhost:8010/api/assignments";
+  url= "https://mbdsmadagascar2022api.herokuapp.com/api/assignments";
 
-  getAssignments():Observable<Assignment[]> {
+  getAssignments(page:number, limit:number):Observable<any> {
     // en réalité, bientôt au lieu de renvoyer un tableau codé en dur,
     // on va envoyer une requête à un Web Service sur le cloud, qui mettra un
     // certain temps à répondre. On va donc préparer le terrain en renvoyant
     // non pas directement les données, mais en renvoyant un objet "Observable"
     //return of(this.assignments);
-    return this.http.get<Assignment[]>(this.url);
+    return this.http.get<Assignment[]>(this.url + "?page=" + page + "&limit=" + limit);
   }
 
   getAssignment(id:number):Observable<Assignment|undefined> {
