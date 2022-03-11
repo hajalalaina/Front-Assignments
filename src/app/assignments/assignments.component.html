@@ -26,30 +26,24 @@
     <button mat-flat-button color="primary" (click)="dernierePage()" [disabled]="!hasNextPage">Dernière page</button>
   </div>
 
+  <!--
   <table mat-table [dataSource]="assignments" class="mat-elevation-z8">
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- id Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> Id </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
-    <!-- nom Column -->
     <ng-container matColumnDef="nom">
       <th mat-header-cell *matHeaderCellDef> Nom </th>
       <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
     </ng-container>
 
-    <!-- dateDeRendu Column -->
     <ng-container matColumnDef="dateDeRendu">
       <th mat-header-cell *matHeaderCellDef> Date de Rendu </th>
       <td mat-cell *matCellDef="let element"> {{element.dateDeRendu}} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
     <ng-container matColumnDef="rendu">
       <th mat-header-cell *matHeaderCellDef> Rendu </th>
       <td mat-cell *matCellDef="let element"> {{element.rendu}} </td>
@@ -58,8 +52,9 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
-  <mat-list *ngFor="let assignment of assignments">
+-->
+<cdk-virtual-scroll-viewport itemSize="150" class="example-viewport" #scroller>
+  <mat-list *cdkVirtualFor="let assignment of assignments" class="example-item">
     <nav>
       <a href="/assignment/{{assignment.id}}">
         <h3 mat-subheader>{{assignment.dateDeRendu | date:"dd/MM/yy"}}</h3>
@@ -75,4 +70,6 @@
       </a>
     </nav>
   </mat-list>
+</cdk-virtual-scroll-viewport>
+
 </main>

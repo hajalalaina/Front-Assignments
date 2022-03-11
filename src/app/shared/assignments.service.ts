@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable, of } from 'rxjs';
+import { catchError, filter, forkJoin, map, Observable, of, pairwise, tap } from 'rxjs';
 import { Assignment } from '../assignments/assignment.model';
 import { LoggingService } from './logging.service';
 import { bdInitialAssignments } from './data';
@@ -18,8 +18,8 @@ export class AssignmentsService {
   }
 
 
-  //url = "http://localhost:8010/api/assignments";
-  url= "https://mbdsmadagascar2022api.herokuapp.com/api/assignments";
+  url = "http://localhost:8010/api/assignments";
+  //url= "https://mbdsmadagascar2022api.herokuapp.com/api/assignments";
 
   getAssignments(page:number, limit:number):Observable<any> {
     // en réalité, bientôt au lieu de renvoyer un tableau codé en dur,
@@ -33,7 +33,26 @@ export class AssignmentsService {
   getAssignment(id:number):Observable<Assignment|undefined> {
     //let a = this.assignments.find(a => a.id === id);
     //return of(a);
-    return this.http.get<Assignment>(`${this.url}/${id}`);
+    return this.http.get<Assignment>(`${this.url}/${id}`)
+    .pipe(
+      map(a => {
+        a.nom = a.nom + " MODIFIE PAR UN MAP AVANT DE L'ENVOYER AU COMPOSANT D'AFFICHAGE";
+        return a;
+      }),
+      tap(a => {
+        console.log("Dans le tap, pour debug, assignment recu = " + a.nom)
+      }),
+      catchError(this.handleError<any>('### catchError: getAssignments by id avec id=' + id))
+    );
+  }
+
+  private handleError<T>(operation: any, result?: T) {
+    return (error: any): Observable<T> => {
+      console.log(error); // pour afficher dans la console
+      console.log(operation + ' a échoué ' + error.message);
+
+      return of(result as T);
+    }
   }
 
   addAssignment(assignment:Assignment):Observable<any> {
