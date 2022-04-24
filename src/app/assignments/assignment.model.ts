@@ -1,7 +1,14 @@
 export class Assignment {
   _id?:string;
-  id!:number;
-  nom!:string;
-  dateDeRendu!:Date;
-  rendu!:boolean;
+  id!: number;
+  idAuteur!: number;
+  idMatiere!: number;
+  libelle!: string;
+  dateRendu!: Date;
+  note!: number;
+  rq!: string;
+  rendu!: Boolean;
+  matiere!:[];
+  auteur!:[];
+  prof!:[];
 }

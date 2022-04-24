@@ -9,7 +9,7 @@ import { Assignment } from './assignment.model';
   templateUrl: './assignments.component.html',
   styleUrls: ['./assignments.component.css'],
 })
-export class AssignmentsComponent implements OnInit, AfterViewInit {
+export class AssignmentsComponent implements OnInit{
   assignments:Assignment[] = [];
   displayedColumns: string[] = ['id', 'nom', 'dateDeRendu', 'rendu'];
 
@@ -25,45 +25,45 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
 
   constructor(private assignmentsService:AssignmentsService, private ngZone: NgZone) {}
 
-  @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
+  // @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
-  ngAfterViewInit():void{
-    this.scroller.elementScrolled().pipe(
-      tap(event => {
-        //console.log(event);
-      }),
-      map(event => {
-        return this.scroller.measureScrollOffset('bottom');
-      }),
-      tap(val => {
-        //console.log("distance par rapport à la fin = " + val)
-      }),
-      pairwise(),
-      tap(val => {
-        /*
-        if(val[0] < val[1]) console.log("on monte")
-        else console.log("on descend")
-        */
-      }),
-      filter(([y1, y2]) => (y2 < y1 && y2 < 140)),
-      tap(val => {
-        //console.log(val)
-      }),
-      throttleTime(200),
-      tap(val => {
-        //console.log(val);
-      })
-    ).subscribe(() => {
-      // ici traitement final
-      console.log("On va chercher de nouveaux assignments !")
+  // ngAfterViewInit():void{
+  //   this.scroller.elementScrolled().pipe(
+  //     tap(event => {
+  //       //console.log(event);
+  //     }),
+  //     map(event => {
+  //       return this.scroller.measureScrollOffset('bottom');
+  //     }),
+  //     tap(val => {
+  //       //console.log("distance par rapport à la fin = " + val)
+  //     }),
+  //     pairwise(),
+  //     tap(val => {
+  //       /*
+  //       if(val[0] < val[1]) console.log("on monte")
+  //       else console.log("on descend")
+  //       */
+  //     }),
+  //     filter(([y1, y2]) => (y2 < y1 && y2 < 140)),
+  //     tap(val => {
+  //       //console.log(val)
+  //     }),
+  //     throttleTime(200),
+  //     tap(val => {
+  //       //console.log(val);
+  //     })
+  //   ).subscribe(() => {
+  //     // ici traitement final
+  //     console.log("On va chercher de nouveaux assignments !")
 
-      // on le fait en tache de fond...
-      this.ngZone.run(() => {
-        this.page = this.nextPage;
-        this.getAssignmentsScrollInfini();
-      })
-    })
-  }
+  //     // on le fait en tache de fond...
+  //     this.ngZone.run(() => {
+  //       this.page = this.nextPage;
+  //       this.getAssignmentsScrollInfini();
+  //     })
+  //   })
+  // }
 
   // appelé après le constructeur et AVANT l'affichage du composant
   ngOnInit(): void {
@@ -90,27 +90,27 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
       console.log("Après l'appel au service");
   }
 
-  getAssignmentsScrollInfini() {
-    // demander les données au service de gestion des assignments...
-    this.assignmentsService.getAssignments(this.page, this.limit)
-    .subscribe(reponse => {
-      console.log("données arrivées");
-      //this.assignments = reponse.docs;
-      // au lieu de remplacer les assignments chargés par les nouveaux, on les ajoute
-      this.assignments = this.assignments.concat(reponse.docs);
+//   getAssignmentsScrollInfini() {
+//     // demander les données au service de gestion des assignments...
+//     this.assignmentsService.getAssignments(this.page, this.limit)
+//     .subscribe(reponse => {
+//       console.log("données arrivées");
+//       //this.assignments = reponse.docs;
+//       // au lieu de remplacer les assignments chargés par les nouveaux, on les ajoute
+//       this.assignments = this.assignments.concat(reponse.docs);
 
-      this.page = reponse.page;
-      this.limit=reponse.limit;
-      this.totalPages=reponse.totalPages;
-      this.pagingCounter=reponse.pagingCounter;
-      this.hasPrevPage=reponse.hasPrevPage;
-      this.hasNextPage=reponse.hasNextPage;
-      this.prevPage= reponse.prevPage;
-      this.nextPage= reponse.nextPage;
-    });
+//       this.page = reponse.page;
+//       this.limit=reponse.limit;
+//       this.totalPages=reponse.totalPages;
+//       this.pagingCounter=reponse.pagingCounter;
+//       this.hasPrevPage=reponse.hasPrevPage;
+//       this.hasNextPage=reponse.hasNextPage;
+//       this.prevPage= reponse.prevPage;
+//       this.nextPage= reponse.nextPage;
+//     });
 
-    console.log("Après l'appel au service");
-}
+//     console.log("Après l'appel au service");
+// }
 
   pagePrecedente() {
     this.page--;

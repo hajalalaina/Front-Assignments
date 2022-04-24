@@ -36,11 +36,11 @@ export class AssignmentsService {
     return this.http.get<Assignment>(`${this.url}/${id}`)
     .pipe(
       map(a => {
-        a.nom = a.nom + " MODIFIE PAR UN MAP AVANT DE L'ENVOYER AU COMPOSANT D'AFFICHAGE";
+        a.libelle += " MODIFIE PAR UN MAP AVANT DE L'ENVOYER AU COMPOSANT D'AFFICHAGE";
         return a;
       }),
       tap(a => {
-        console.log("Dans le tap, pour debug, assignment recu = " + a.nom)
+        console.log("Dans le tap, pour debug, assignment recu = " + a.libelle)
       }),
       catchError(this.handleError<any>('### catchError: getAssignments by id avec id=' + id))
     );
@@ -58,7 +58,7 @@ export class AssignmentsService {
   addAssignment(assignment:Assignment):Observable<any> {
    // this.assignments.push(assignment);
 
-    this.loggingService.log(assignment.nom, "ajouté");
+    this.loggingService.log(assignment.libelle, "ajouté");
 
     return this.http.post<Assignment>(this.url, assignment);
 
@@ -66,7 +66,7 @@ export class AssignmentsService {
   }
 
   updateAssignment(assignment:Assignment):Observable<any> {
-    this.loggingService.log(assignment.nom, "modifié");
+    this.loggingService.log(assignment.libelle, "modifié");
 
     return this.http.put<Assignment>(this.url, assignment);
   }
@@ -75,41 +75,41 @@ export class AssignmentsService {
     //let pos = this.assignments.indexOf(assignment);
     //this.assignments.splice(pos, 1);
 
-    this.loggingService.log(assignment.nom, "supprimé");
+    this.loggingService.log(assignment.libelle, "supprimé");
 
     //return of("Assignment supprimé");
     return this.http.delete(this.url + "/" + assignment._id);
   }
 
-  peuplerBD() {
-    bdInitialAssignments.forEach(a => {
-      let newAssignment = new Assignment();
-      newAssignment.nom = a.nom;
-      newAssignment.dateDeRendu = new Date(a.dateDeRendu);
-      newAssignment.rendu = a.rendu;
-      newAssignment.id = a.id;
+  // peuplerBD() {
+  //   bdInitialAssignments.forEach(a => {
+  //     let newAssignment = new Assignment();
+  //     newAssignment.libelle = a.libelle;
+  //     newAssignment.dateDeRendu = new Date(a.dateDeRendu);
+  //     newAssignment.rendu = a.rendu;
+  //     newAssignment.id = a.id;
 
-      this.addAssignment(newAssignment)
-      .subscribe(reponse => {
-        console.log(reponse.message);
-      })
-    })
-  }
+  //     this.addAssignment(newAssignment)
+  //     .subscribe(reponse => {
+  //       console.log(reponse.message);
+  //     })
+  //   })
+  // }
 
-  peuplerBDAvecForkJoin(): Observable<any> {
-    const appelsVersAddAssignment:any = [];
+  // peuplerBDAvecForkJoin(): Observable<any> {
+  //   const appelsVersAddAssignment:any = [];
 
-    bdInitialAssignments.forEach((a) => {
-      const nouvelAssignment:any = new Assignment();
+  //   bdInitialAssignments.forEach((a) => {
+  //     const nouvelAssignment:any = new Assignment();
 
-      nouvelAssignment.id = a.id;
-      nouvelAssignment.nom = a.nom;
-      nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
-      nouvelAssignment.rendu = a.rendu;
+  //     nouvelAssignment.id = a.id;
+  //     nouvelAssignment.libelle = a.libelle;
+  //     nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
+  //     nouvelAssignment.rendu = a.rendu;
 
-      appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
-    });
-    return forkJoin(appelsVersAddAssignment); // renvoie un seul Observable pour dire que c'est fini
-  }
+  //     appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
+  //   });
+  //   return forkJoin(appelsVersAddAssignment); // renvoie un seul Observable pour dire que c'est fini
+  // }
 
 }

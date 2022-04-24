@@ -25,8 +25,8 @@ export class AddAssignmentComponent implements OnInit {
 
     let newAssignment = new Assignment();
     newAssignment.id = Math.round(Math.random()*10000000);
-    newAssignment.nom = this.nomAssignment;
-    newAssignment.dateDeRendu = this.dateDeRendu;
+    newAssignment.libelle = this.nomAssignment;
+    newAssignment.dateRendu = this.dateDeRendu;
     newAssignment.rendu = false;
 
     this.assignmentsService.addAssignment(newAssignment)
