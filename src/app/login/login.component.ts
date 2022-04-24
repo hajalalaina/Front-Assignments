@@ -1,18 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  username = "";
-  password  = "";
-  constructor() { }
+  nom: string = '';
+  mdp: string = '';
 
-  ngOnInit(): void {
-  }
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {}
+
   onSubmit() {
-    console.log("username = " + this.username + " password = " + this.password);
+    console.log('infos user', this.nom, this.mdp);
+    this.authService.logIn(this.nom, this.mdp).subscribe(
+      (res) => console.log(res),
+      (err) => console.log(err)
+    );
+    //TODO: token ?
   }
 }

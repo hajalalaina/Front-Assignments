@@ -1,8 +1,7 @@
 export class User {
-  idUser!: number;
-  nom!: string;
-  mdp!: string;
-  role!: number;
-  image!: string;
- 
+  idUser!: number | null;
+  nom?: string;
+  mdp?: string;
+  role?: number;
+  image?: string;
 }
