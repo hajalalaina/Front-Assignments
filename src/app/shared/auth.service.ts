@@ -6,31 +6,34 @@ import { User } from '../login/user.model';
 })
 export class AuthService {
   loggedIn = false;
-  url = 'http://localhost:8010/api/users';
-  //POST  nom: mdp:
-  //body = {nom:input,mdp:input}
+  url = 'http://localhost:8010/api/users/login';
+  token: string = '';
+
   constructor(private http: HttpClient) {}
 
-  logIn(login: string , password: string) {
-    // normalement il faudrait envoyer une requête sur un web service, passer le login et le password
-    // et recevoir un token d'authentification, etc. etc.
-
-    // pour le moment, si on appelle cette méthode, on ne vérifie rien et on se loggue
+  logIn(login: string, password: string) {
     const body = {
       nom: login,
       mdp: password,
     };
-
-    return this.http.post<User>(this.url, body);
-
-    // this.loggedIn = true;
+    const callApi = this.http.post<User>(this.url, body);
+    callApi.subscribe(
+      (res: any) => {
+        localStorage.setItem('token', res.token);
+      },
+      (err) => {
+        console.log('err', err);
+      }
+    );
+    return callApi;
   }
 
   logOut() {
-    this.loggedIn = false;
+    localStorage.removeItem('token');
   }
 
   isAdmin() {
+    //transformer token => droit
     let isUserAdmin = new Promise((resolve, reject) => {
       resolve(this.loggedIn);
     });
