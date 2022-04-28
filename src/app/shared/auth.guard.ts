@@ -24,40 +24,13 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!localStorage.getItem('token')) {
-      this.router.navigate(['/login']);
-      return false;
-    } else {
-      //check if token not expired
-      const token = localStorage.getItem('token');
-      if (token) {
-        const tokenValue: any = jwt_decode(token);
-        console.log("token", tokenValue);
-        let expired: boolean = true;
-        expired = new Date(tokenValue.exp * 1000) < new Date();
-        console.log(
-          'expired?',
-          expired,
-          ' at ',
-          new Date(tokenValue.exp * 1000)
-        );
-        if (expired) {
-          this.router.navigate(['/login']);
-          localStorage.removeItem('token');
-          return false;
-        }
-      }
-    }
-    return true;
-
-    // si renvoie true ça dit que les routes associées à ce gardien sont navigables
-    return this.authService.isAdmin().then((admin): boolean => {
-      //console.log("admin = " + admin + " type : " + (typeof admin))
-      if (admin) {
-        console.log('GARDIEN autorise la navigation, vous êtes bien un admin');
+    const token = localStorage.getItem('token');
+    if (token) {
+      const tokenValue: any = jwt_decode(token);
+      if (tokenValue.user.role == 1) {
+        console.log('guard auth', tokenValue.user);
         return true;
       }
-      console.log('guard auth', tokenValue.user);
     }
     return false;
   }
