@@ -35,15 +35,15 @@ export class AssignmentsService {
     //return of(a);
     return this.http.get<Assignment>(`${this.url}/${id}`)
     .pipe(
-      catchError(this.handleError<any>('### catchError: getAssignments by id avec id=' + id))
+      catchError(this.handleError<any>(id))
     );
   }
 
   private handleError<T>(operation: any, result?: T) {
     return (error: any): Observable<T> => {
       console.log(error); // pour afficher dans la console
-      console.log(operation + ' a échoué ' + error.message);
-
+      console.log(JSON.stringify(error.error.error)+" "+operation);
+      
       return of(result as T);
     }
   }
