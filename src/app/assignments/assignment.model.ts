@@ -7,9 +7,9 @@ export class Assignment {
   idMatiere!: number;
   libelle!: string;
   dateRendu!: Date;
-  note!: number | undefined;
-  rq!: string | undefined;
-  rendu!: Boolean | undefined;
+  note!: number;
+  rq!: string;
+  rendu!: boolean;
   matiere:Matiere[]= [new Matiere()];
   auteur:User[]= [new User()];
   prof:User[] = [new User()];

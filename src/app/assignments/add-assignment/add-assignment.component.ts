@@ -17,9 +17,9 @@ export class AddAssignmentComponent implements OnInit {
   nomAssignment!: string;
   dateDeRendu!: Date;
   idMatiere!: number;
-  remarque?: string;
-  rendu?: boolean = false;
-  note?: number = 0;
+  remarque: string = "";
+  rendu: boolean = false;
+  note!: number;
 
   constructor(
     private assignmentsService: AssignmentsService,

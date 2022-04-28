@@ -11,13 +11,13 @@ import { Assignment } from '../assignment.model';
 })
 export class AssignmentDetailComponent implements OnInit {
   assignmentTransmis?: Assignment;
-  erreurDetail? : "";
+  erreurDetail?: "";
   constructor(
     private assignmentsService: AssignmentsService,
-    private authService:AuthService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // on va récupérer l'id dans l'URL,
@@ -32,26 +32,13 @@ export class AssignmentDetailComponent implements OnInit {
     this.assignmentsService.getAssignment(id).subscribe(
       (assignment) => {
         this.assignmentTransmis = assignment;
+        if(this.assignmentTransmis) console.log("note: ", this.assignmentTransmis.note);
       },
       (error) => {
         this.router.navigate(['/home']);
       }
 
     );
-  }
-
-  onAssignmentRendu() {
-    if (this.assignmentTransmis) {
-      this.assignmentTransmis.rendu = true;
-
-      this.assignmentsService
-        .updateAssignment(this.assignmentTransmis)
-        .subscribe((reponse) => {
-          console.log(reponse.message);
-          // et on navigue vers la page d'accueil pour afficher la liste
-          this.router.navigate(['/home']);
-        });
-    }
   }
 
   onDelete() {
@@ -65,15 +52,8 @@ export class AssignmentDetailComponent implements OnInit {
         this.router.navigate(['/home']);
       });
   }
-
   onClickEdit() {
-    this.router.navigate(['/assignment', this.assignmentTransmis?.id, 'edit'], {
-      queryParams: {
-        name: 'Michel Buffa',
-        job: 'Professeur',
-      },
-      fragment: 'edition',
-    });
+    this.router.navigate(['/assignment', this.assignmentTransmis?.id, 'edit']);
   }
 
   isLoggedIn() {
