@@ -11,7 +11,7 @@ import { Assignment } from '../assignment.model';
 })
 export class AssignmentDetailComponent implements OnInit {
   assignmentTransmis?: Assignment;
-
+  erreurDetail? : "";
   constructor(
     private assignmentsService: AssignmentsService,
     private authService:AuthService,
@@ -29,9 +29,15 @@ export class AssignmentDetailComponent implements OnInit {
   getAssignment(id: number) {
     // on demande au service de gestion des assignment,
     // l'assignment qui a cet id !
-    this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-      this.assignmentTransmis = assignment;
-    });
+    this.assignmentsService.getAssignment(id).subscribe(
+      (assignment) => {
+        this.assignmentTransmis = assignment;
+      },
+      (error) => {
+        this.router.navigate(['/home']);
+      }
+
+    );
   }
 
   onAssignmentRendu() {
@@ -71,6 +77,7 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
   isLoggedIn() {
-    return this.authService.loggedIn;
+    console.log("isAdmin : " + this.authService.isAdmin());
+    return this.authService.isAdmin();
   }
 }

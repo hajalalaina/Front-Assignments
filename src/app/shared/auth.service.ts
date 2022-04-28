@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../login/user.model';
+import jwt_decode from 'jwt-decode';
+import {  Observable } from 'rxjs';
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -11,20 +15,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  logIn(login: string, password: string) {
+  logIn(login: string, password: string):Observable<User>  {
     const body = {
       nom: login,
       mdp: password,
     };
     const callApi = this.http.post<User>(this.url, body);
-    callApi.subscribe(
-      (res: any) => {
-        localStorage.setItem('token', res.token);
-      },
-      (err) => {
-        console.log('err', err);
-      }
-    );
     return callApi;
   }
 
@@ -33,13 +29,14 @@ export class AuthService {
   }
 
   isAdmin() {
-    //transformer token => droit
-    let isUserAdmin = new Promise((resolve, reject) => {
-      resolve(this.loggedIn);
-    });
-    //return this.loggedIn;
-    return isUserAdmin;
+    const token = localStorage.getItem('token');
+    if (token) {
+      const tokenValue: any = jwt_decode(token);
+      if (tokenValue.user.role == 1) {
+        console.log('guard auth', tokenValue.user);
+        return true;
+      }
+    }
+    return false;
   }
-
-  // isAdmin().then(admin => { if(admin) { console.log("L'utilisateur est administrateur"); }})
 }

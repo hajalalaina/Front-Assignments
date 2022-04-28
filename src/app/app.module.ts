@@ -27,6 +27,7 @@ import { AuthGuard } from './shared/auth.guard';
 import { LoginGuard } from './shared/login.guard';
 import { NonRenduDirective } from './shared/non-rendu.directive';
 import { RenduDirective } from './shared/rendu.directive';
+import { ErreurDirective } from './shared/erreur.directive';
 
 const routes: Routes = [
   {
@@ -67,6 +68,7 @@ const routes: Routes = [
     AddAssignmentComponent,
     EditAssignmentComponent,
     LoginComponent,
+    ErreurDirective,
   ],
   imports: [
     BrowserModule,

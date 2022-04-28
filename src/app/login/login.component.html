@@ -30,7 +30,7 @@
     Login
   </button>
 </form>
-
+<p appErreur *ngIf="erreur != ''">{{erreur}}</p>
 <form (ngSubmit)="logout()" #loginForm="ngForm">
   <button
     type="submit"

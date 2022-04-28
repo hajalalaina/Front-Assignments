@@ -5,7 +5,7 @@
     <p>
       Remarques: {{assignmentTransmis.rq}}
     </p>
-    <p *ngIf="assignmentTransmis.rendu">
+    <p *ngIf="assignmentTransmis.note != 0">
       Note:  {{assignmentTransmis.note}}
     </p>
   </mat-card-content>
@@ -14,4 +14,5 @@
     <button mat-stroked-button color="primary" (click)="onClickEdit()" [disabled]="!isLoggedIn()">EDIT</button>
     <button mat-raised-button color="warn" (click)="onDelete()" [disabled]="!isLoggedIn()">DELETE</button>
   </div>
+  <p *ngIf="erreurDetail !=''" >{{erreurDetail}}</p>
 </mat-card>
