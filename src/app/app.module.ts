@@ -40,7 +40,7 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
-    path: 'add',
+    path: 'assignment/add',
     component: AddAssignmentComponent,
   },
   {
