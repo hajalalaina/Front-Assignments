@@ -32,10 +32,10 @@ height: 50px;
 .example-card {
   max-width: 600px;
   margin-bottom: 8px;
-  display: flex !important;
+
+
 }
 .title-group {
-  justify-content: space-between;
 }
 .image-matiere{
   order: 1;

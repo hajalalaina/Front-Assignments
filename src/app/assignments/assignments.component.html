@@ -71,14 +71,17 @@
   </mat-list>
 </cdk-virtual-scroll-viewport> -->
   <mat-card *ngFor="let assignment of assignments" class="example-card">
-    <div class="status" *ngIf="assignment.rendu == true; else nonsoumis" appRendu></div>
+    <nav>
+    <a href="/assignment/{{assignment.id}}">
+
+    <!-- <div class="status" *ngIf="assignment.rendu == true; else nonsoumis" appRendu></div>
     <ng-template #nonsoumis>
       <div class="status" appNonRendu></div>
     </ng-template>
     <div class="image-matiere">
       <img mat-card-lg-image class="image-matiere" src="{{assignment.matiere[0].image}}">
-    </div>
-    <!-- <mat-card-title-group class="title-group">
+    </div> -->
+    <mat-card-title-group class="title-group">
     <img mat-card-lg-image class="image-matiere" src="{{assignment.matiere[0].image}}">
      
       <div class="titre">
@@ -92,7 +95,8 @@
         </mat-card-content>
       </div>
       <img mat-card-sm-image class="image-prof" src="{{assignment.prof[0].image}}">
-    </mat-card-title-group> -->
-
+    </mat-card-title-group>
+</a>
+</nav>
   </mat-card>
 </main>
