@@ -24,6 +24,7 @@ import { AssignmentsComponent } from './assignments/assignments.component';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './shared/auth.guard';
+import { LoginGuard } from './shared/login.guard';
 import { NonRenduDirective } from './shared/non-rendu.directive';
 import { RenduDirective } from './shared/rendu.directive';
 
@@ -31,12 +32,12 @@ const routes: Routes = [
   {
     path: '',
     component: AssignmentsComponent,
-    canActivate: [AuthGuard],
+    canActivate: [LoginGuard],
   },
   {
     path: 'home',
     component: AssignmentsComponent,
-    canActivate: [AuthGuard],
+    canActivate: [LoginGuard],
   },
   {
     path: 'add',
@@ -53,7 +54,7 @@ const routes: Routes = [
   {
     path: 'assignment/:id/edit',
     component: EditAssignmentComponent,
-    canActivate: [AuthGuard],
+    canActivate: [LoginGuard, AuthGuard],
   },
 ];
 @NgModule({

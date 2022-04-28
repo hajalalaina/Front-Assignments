@@ -13,7 +13,7 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class LoginGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
@@ -28,13 +28,13 @@ export class AuthGuard implements CanActivate {
       this.router.navigate(['/login']);
       return false;
     } else {
-      //check if token not expired
+      //check if token is not expired
       const token = localStorage.getItem('token');
       if (token) {
         const tokenValue: any = jwt_decode(token);
-        console.log("token", tokenValue);
         let expired: boolean = true;
         expired = new Date(tokenValue.exp * 1000) < new Date();
+        console.log(tokenValue);
         console.log(
           'expired?',
           expired,
@@ -49,16 +49,5 @@ export class AuthGuard implements CanActivate {
       }
     }
     return true;
-
-    // si renvoie true ça dit que les routes associées à ce gardien sont navigables
-    return this.authService.isAdmin().then((admin): boolean => {
-      //console.log("admin = " + admin + " type : " + (typeof admin))
-      if (admin) {
-        console.log('GARDIEN autorise la navigation, vous êtes bien un admin');
-        return true;
-      }
-      console.log('guard auth', tokenValue.user);
-    }
-    return false;
   }
 }
