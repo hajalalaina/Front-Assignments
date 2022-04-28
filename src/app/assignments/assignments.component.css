@@ -1,13 +1,3 @@
-.rendu {
-  color:green;
-}
-
-.nonRendu {
-  color:red;
-  background-color: yellow;
-  border: 2px dashed orange;
-}
-
 .container {
   display:flex;
   flex-direction: column;
@@ -30,7 +20,38 @@ table {
   width: 100%;
   border: 1px solid black;
 }
-
+.status{
+  /* order: 0; */
+height: 50px;
+  width: 50px;
+  /* background-color: green; */
+}
 .example-item {
   height: 150px;
+}
+.example-card {
+  max-width: 600px;
+  margin-bottom: 8px;
+  display: flex !important;
+}
+.title-group {
+  justify-content: space-between;
+}
+.image-matiere{
+  order: 1;
+}
+.titre{
+  order: 2;
+}
+.image-prof{
+  order: 3;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50%;
+}
+.content-assignment{
+  margin-bottom: 8px;
+} 
+.rendre{
+  margin-top: 5px;
 }

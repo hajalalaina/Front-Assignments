@@ -8,18 +8,17 @@
   <h2>Liste des devoirs :</h2>
 
   <div class="barrePagination">
-    <p>Page courante : {{page}}, assignments visibles : {{pagingCounter}} - {{pagingCounter + limit-1}}, nbPages total {{totalPages}}</p>
-    <p>Nb assignments par page : <input type="range" min=5 max=100 [(ngModel)]="limit" (change)="getAssignments()">
+    <p>Page courante : {{page}}, assignments visibles : {{pagingCounter}} - {{pagingCounter + limit-1}}, nbPages total
+      {{totalPages}}</p>
+    <p>Nb assignments par page : <input type="range" min=2 max=100 [(ngModel)]="limit" (change)="getAssignments()">
       {{limit}}
     </p>
 
     <button mat-flat-button color="primary" [disabled]="!hasPrevPage" (click)="premierePage()">Première page</button>
     &nbsp;
 
-    <button mat-flat-button color="primary"
-            (click)="pagePrecedente()"
-            [disabled]="!hasPrevPage"
-    >Page précédente</button>
+    <button mat-flat-button color="primary" (click)="pagePrecedente()" [disabled]="!hasPrevPage">Page
+      précédente</button>
     &nbsp;
     <button mat-flat-button color="primary" (click)="pageSuivante()" [disabled]="!hasNextPage">Page suivante</button>
     &nbsp;
@@ -53,7 +52,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 -->
-<cdk-virtual-scroll-viewport itemSize="150" class="example-viewport" #scroller>
+  <!-- <cdk-virtual-scroll-viewport itemSize="150" class="example-viewport" #scroller>
   <mat-list *cdkVirtualFor="let assignment of assignments" class="example-item">
     <nav>
       <a href="/assignment/{{assignment.id}}">
@@ -70,6 +69,30 @@
       </a>
     </nav>
   </mat-list>
-</cdk-virtual-scroll-viewport>
+</cdk-virtual-scroll-viewport> -->
+  <mat-card *ngFor="let assignment of assignments" class="example-card">
+    <div class="status" *ngIf="assignment.rendu == true; else nonsoumis" appRendu></div>
+    <ng-template #nonsoumis>
+      <div class="status" appNonRendu></div>
+    </ng-template>
+    <div class="image-matiere">
+      <img mat-card-lg-image class="image-matiere" src="{{assignment.matiere[0].image}}">
+    </div>
+    <!-- <mat-card-title-group class="title-group">
+    <img mat-card-lg-image class="image-matiere" src="{{assignment.matiere[0].image}}">
+     
+      <div class="titre">
+        
+        <mat-card-title>{{assignment.libelle}}</mat-card-title>
+        <mat-card-subtitle>Créé par {{assignment.auteur[0].nom}}
+        </mat-card-subtitle>
+        <mat-card-content class="content-assignment">
+          <div><b>Cours de : </b>{{assignment.prof[0].nom}}</div>
+          <div class="rendre"><b>A rendre le : </b>{{assignment.dateRendu | date:"dd/mm/yy"}}</div>
+        </mat-card-content>
+      </div>
+      <img mat-card-sm-image class="image-prof" src="{{assignment.prof[0].image}}">
+    </mat-card-title-group> -->
 
+  </mat-card>
 </main>

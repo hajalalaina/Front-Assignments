@@ -1,3 +1,5 @@
+import {Matiere} from './matiere.model';
+import { User } from '../login/user.model';
 export class Assignment {
   _id?:string;
   id!: number;
@@ -8,7 +10,7 @@ export class Assignment {
   note!: number;
   rq!: string;
   rendu!: Boolean;
-  matiere!:[];
-  auteur!:[];
-  prof!:[];
+  matiere:Matiere[]= [new Matiere()];
+  auteur:User[]= [new User()];
+  prof:User[] = [new User()];
 }
