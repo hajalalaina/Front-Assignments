@@ -1,14 +1,26 @@
-<div class="container">
-  <h1>
-    <nav>
-      <a routerLink="/home">{{titre}}</a>
-    </nav>
-  </h1>
-  <mat-slide-toggle (click)="onLoginLogout()">Login</mat-slide-toggle>
-  <br>
-  <!--
-  <button mat-button color="primary" (click)="genererDonneesDeTest()">Peupler BD avec données de test</button>
-  -->
-</div>
-
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>assignment</mat-icon>
+    </button>
+    <span>{{titre}}</span>
+    <span class="example-spacer"></span>
+    <div>
+      <a mat-button [routerLink]="'/home'">Home</a>
+      <a mat-button [routerLink]="'/assignments'"> Liste des devoirs </a>
+      <a mat-button [routerLink]="'/assignment/add'"> Ajout devoir </a>
+    </div>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon></mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>share</mat-icon>
+    </button>
+  </mat-toolbar-row>
+ 
+  
+</mat-toolbar>
 <router-outlet></router-outlet>
+
+
+
