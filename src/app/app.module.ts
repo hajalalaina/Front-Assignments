@@ -2,6 +2,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import {MatStepperModule} from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -30,7 +31,7 @@ import { LoginGuard } from './shared/login.guard';
 import { NonRenduDirective } from './shared/non-rendu.directive';
 import { RenduDirective } from './shared/rendu.directive';
 import { ErreurDirective } from './shared/erreur.directive';
-
+import { IconsModule } from './shared/icons/icons.module';
 const routes: Routes = [
   {
     path: '',
@@ -73,6 +74,8 @@ const routes: Routes = [
     ErreurDirective,
   ],
   imports: [
+    IconsModule,
+    MatStepperModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
