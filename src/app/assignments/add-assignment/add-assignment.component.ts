@@ -14,13 +14,6 @@ import { Matiere } from '../matiere.model';
 export class AddAssignmentComponent implements OnInit {
   // Champ de formulaire
   matieres: Matiere[] = [];
-
-  nomAssignment!: string;
-  dateDeRendu!: Date;
-  idMatiere!: number;
-  remarque: string = '';
-  rendu: boolean = false;
-  note!: number;
   //stepper
   isLinear = false;
   firstFormGroup: any;
@@ -51,29 +44,27 @@ export class AddAssignmentComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.firstFormGroup.get('dateDeRendu').value);
-    alert();
-    if (!this.nomAssignment || !this.dateDeRendu || !this.idMatiere) return;
     const libelle = this.firstFormGroup.get('libelle').value;
     const dateDeRendu = this.firstFormGroup.get('dateDeRendu').value;
-    
-    console.log('CREATE new assignment, affichage des données ');
-    console.log('nomAssignment', this.nomAssignment);
-    console.log('dateDeRendu', this.dateDeRendu);
-    console.log('matiere', this.idMatiere);
-    console.log('remarque', this.remarque);
-    console.log('rendu', this.rendu);
-    console.log('note', this.note);
+    const idMatiere = this.secondFormGroup.get('idMatiere').value;
+    const remarque = this.thirdFormGroup.get('remarque').value;
+    if (!libelle || !dateDeRendu || !idMatiere) return;
+
+    // console.log('CREATE new assignment, affichage des données ');
+    // console.log('nomAssignment', libelle);
+    // console.log('dateDeRendu', dateDeRendu);
+    // console.log('matiere', idMatiere);
+    // console.log('remarque', remarque);
     const currentUser = getUserViaToken();
     let newAssignment = new Assignment();
     newAssignment.id = Math.round(Math.random() * 10000000);
     newAssignment.idAuteur = currentUser.idUser;
-    newAssignment.idMatiere = this.idMatiere;
-    newAssignment.libelle = this.nomAssignment;
-    newAssignment.dateRendu = this.dateDeRendu; //NEED FORMATTER?
-    newAssignment.note = this.note;
-    newAssignment.rq = this.remarque ?? '';
-    newAssignment.rendu = this.rendu;
+    newAssignment.idMatiere = idMatiere;
+    newAssignment.libelle = libelle;
+    newAssignment.dateRendu = dateDeRendu; //NEED FORMATTER?
+    newAssignment.note = 0;
+    newAssignment.rq = remarque ?? '';
+    newAssignment.rendu = false;
     console.log('assignment object', newAssignment);
     console.log('END CREATE new assignment');
 
@@ -81,9 +72,6 @@ export class AddAssignmentComponent implements OnInit {
       .addAssignment(newAssignment)
       .subscribe((reponse) => {
         console.log(reponse.message);
-
-        // il va falloir naviguer (demander au router) d'afficher à nouveau la liste
-        // en gros, demander de naviguer vers /home
         this.router.navigate(['/home']);
       });
   }
