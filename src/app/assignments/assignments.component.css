@@ -1,6 +1,7 @@
 .container {
-  display:flex;
+  display: flex;
   flex-direction: column;
+
 }
 
 .ajouterBtn {
@@ -12,7 +13,7 @@ table {
 }
 
 .mat-column-id {
-  color:red;
+  color: red;
 }
 
 .example-viewport {
@@ -20,36 +21,134 @@ table {
   width: 100%;
   border: 1px solid black;
 }
-.status{
-  /* order: 0; */
-height: 50px;
-  width: 50px;
-  /* background-color: green; */
-}
+
 .example-item {
   height: 150px;
 }
-.example-card {
-  max-width: 600px;
-  margin-bottom: 8px;
+
+/* LIST ASSIGNMENTS */
+.rendu-bg {
+  width: 500px;
+  margin-bottom: 2%;
 }
-.title-group {
+
+.rendu-bg img {
+  max-width: 100%;
+  max-height: 100%;
 }
-.image-matiere{
-  order: 1;
+
+.list-matiere {
+  padding: 2%;
 }
-.titre{
-  order: 2;
+
+.image-matiere {
+  width: 100px;
+  height: 100px;
 }
-.image-prof{
-  order: 3;
+
+.image-prof {
   width: 30px !important;
   height: 30px !important;
   border-radius: 50%;
 }
-.content-assignment{
+
+.list-prof {
+  margin-left: auto;
+  padding: 2%;
+}
+
+.list-rendu {
+  width: 500px;
+  background-color: #e6e6ef;
+  padding: 2%;
+}
+
+.example-card {
+  width: 500px;
   margin-bottom: 8px;
-} 
-.rendre{
-  margin-top: 5px;
+  display: flex;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  background-color: white;
+}
+.card-link{
+  text-decoration: none;
+
+}
+.list-info .mat-card-title {
+  font-family: 'Work Sans', sans-serif;
+  color: #73737b;
+}
+
+.content-assignment {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-top: 46px;
+}
+
+.content-item {
+  padding-left: 4px;
+  align-self: self-end;
+  color: #b5b5bd;
+}
+
+.list-content {
+  display: flex;
+  justify-content: space-between;
+  padding: 2%;
+  margin: auto;
+  width: 70%;
+
+}
+
+.rendu-title {
+  font-family: 'Nanum Gothic', sans-serif;
+  padding-bottom: 11px;
+  font-size: 18px;
+  font-weight: bold
+}
+
+.icon {
+  color: #b5b5bd;
+  stroke-width: 2;
+  align-self: self-end;
+}
+
+.icon-item {
+  display: flex;
+}
+
+.list-info {
+  padding-left: 5%;
+  padding-top: 2%;
+  width: 250px;
+
+}
+mat-paginator.mat-paginator {
+  font-size: 16px;
+}
+.barrePagination {
+  font-size: 18px !important;
+}
+/* SCROLLING BAR */
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: red; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
 }

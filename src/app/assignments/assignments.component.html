@@ -1,92 +1,9 @@
 <main class="container">
-  <a routerLink="/assignment/add" class="ajouterBtn">
-    <button mat-flat-button color="accent">Ajouter Assignment</button>
-  </a>
-
-  <h2>Liste des devoirs :</h2>
-
+  <h2 style="padding-left: 3.5%">Liste des devoirs </h2>
   <div class="barrePagination">
-    <p>
-      Page courante : {{ page }}, assignments visibles : {{ pagingCounter }} -
-      {{ pagingCounter + limit - 1 }}, nbPages total {{ totalPages }}
-    </p>
-    <p>
-      Nb assignments par page :
-      <input
-        type="range"
-        min="2"
-        max="100"
-        [(ngModel)]="limit"
-        (change)="getAssignments()"
-      />
-      {{ limit }}
-    </p>
-
-    <button
-      mat-flat-button
-      color="primary"
-      [disabled]="!hasPrevPage"
-      (click)="premierePage()"
-    >
-      Première page
-    </button>
-    &nbsp;
-
-    <button
-      mat-flat-button
-      color="primary"
-      (click)="pagePrecedente()"
-      [disabled]="!hasPrevPage"
-    >
-      Page précédente
-    </button>
-    &nbsp;
-    <button
-      mat-flat-button
-      color="primary"
-      (click)="pageSuivante()"
-      [disabled]="!hasNextPage"
-    >
-      Page suivante
-    </button>
-    &nbsp;
-    <button
-      mat-flat-button
-      color="primary"
-      (click)="dernierePage()"
-      [disabled]="!hasNextPage"
-    >
-      Dernière page
-    </button>
+    <mat-paginator [length]="totalPages" [pageSize]="limit" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page" (page)="onPageEvent($event)">
+    </mat-paginator>
   </div>
-
-  <!--
-  <table mat-table [dataSource]="assignments" class="mat-elevation-z8">
-
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="nom">
-      <th mat-header-cell *matHeaderCellDef> Nom </th>
-      <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="dateDeRendu">
-      <th mat-header-cell *matHeaderCellDef> Date de Rendu </th>
-      <td mat-cell *matCellDef="let element"> {{element.dateDeRendu}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="rendu">
-      <th mat-header-cell *matHeaderCellDef> Rendu </th>
-      <td mat-cell *matCellDef="let element"> {{element.rendu}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
--->
   <!-- <cdk-virtual-scroll-viewport itemSize="150" class="example-viewport" #scroller>
   <mat-list *cdkVirtualFor="let assignment of assignments" class="example-item">
     <nav>
@@ -105,43 +22,73 @@
     </nav>
   </mat-list>
 </cdk-virtual-scroll-viewport> -->
-  <mat-card *ngFor="let assignment of assignments" class="example-card">
-    <nav>
-      <a href="/assignment/{{ assignment.id }}">
-        <!-- <div class="status" *ngIf="assignment.rendu == true; else nonsoumis" appRendu></div>
-    <ng-template #nonsoumis>
-      <div class="status" appNonRendu></div>
-    </ng-template>
-    <div class="image-matiere">
-      <img mat-card-lg-image class="image-matiere" src="{{assignment.matiere[0].image}}">
-    </div> -->
-        <mat-card-title-group class="title-group">
-          <img
-            mat-card-lg-image
-            class="image-matiere"
-            src="{{ assignment.matiere[0].image }}"
-          />
-
-          <div class="titre">
+  <div class="list-content">
+    <div class="list-rendu">
+      <div class="rendu-title">Assignment Rendered</div>
+      <div class="rendu-bg"><img src="../../assets/image/ok.jpg" /></div>
+      <div>
+      </div>
+      <cdk-virtual-scroll-viewport appendOnly itemSize="limit" class="example-viewport">
+      <a class="card-link" *cdkVirtualFor="let assignment of assignmentsRendu" href="/assignment/{{assignment.id}}">
+        <div class="example-card">
+          <div class="list-matiere">
+            <img class="image-matiere" src="{{ assignment.matiere[0].image }}" />
+          </div>
+          <div class="list-info">
             <mat-card-title>{{ assignment.libelle }}</mat-card-title>
-            <mat-card-subtitle
-              >Créé par {{ assignment.auteur[0].nom }}
-            </mat-card-subtitle>
             <mat-card-content class="content-assignment">
-              <div><b>Cours de : </b>{{ assignment.prof[0].nom }}</div>
-              <div class="rendre">
-                <b>A rendre le : </b
-                >{{ assignment.dateRendu | date: "dd/mm/yy" }}
+              <div class="icon-item">
+                <i-feather name="book-open" class="icon"></i-feather><span
+                  class="content-item">{{assignment.matiere[0].libelle}}</span>
+              </div>
+              <div class="icon-item">
+                <i-feather name="user" class="icon"></i-feather><span class="content-item"> {{ assignment.auteur[0].nom
+                  }}</span>
+              </div>
+              <div class="icon-item">
+                <i-feather name="clock" class="icon"></i-feather><span class="content-item">{{ assignment.dateRendu |
+                  date: "dd/mm/yy" }}</span>
               </div>
             </mat-card-content>
           </div>
-          <img
-            mat-card-sm-image
-            class="image-prof"
-            src="{{ assignment.prof[0].image }}"
-          />
-        </mat-card-title-group>
+          <div class="list-prof">
+            <img mat-card-sm-image class="image-prof" src="{{ assignment.prof[0].image }}" />
+          </div>
+
+        </div>
       </a>
-    </nav>
-  </mat-card>
-</main>
+      </cdk-virtual-scroll-viewport>
+    </div>
+    <div class="list-rendu">
+      <div class="rendu-title">Assignment Not Rendered</div>
+      <div class="rendu-bg"><img src="../../assets/image/137-1379308_website-work-in-progress.png" /></div>
+      <div>
+      </div>
+      <div *ngFor="let assignment of assignmentsNonRendu" class="example-card">
+        <div class="list-matiere">
+          <img class="image-matiere" src="{{ assignment.matiere[0].image }}" />
+        </div>
+        <div class="list-info">
+          <mat-card-title>{{ assignment.libelle }}</mat-card-title>
+          <mat-card-content class="content-assignment">
+            <div class="icon-item">
+              <i-feather name="book-open" class="icon"></i-feather><span
+                class="content-item">{{assignment.matiere[0].libelle}}</span>
+            </div>
+            <div class="icon-item">
+              <i-feather name="user" class="icon"></i-feather><span class="content-item"> {{
+                assignment.auteur[0].nom }}</span>
+            </div>
+            <div class="icon-item">
+              <i-feather name="clock" class="icon"></i-feather><span class="content-item">{{ assignment.dateRendu |
+                date: "dd/mm/yy" }}</span>
+            </div>
+          </mat-card-content>
+        </div>
+        <div class="list-prof">
+          <img mat-card-sm-image class="image-prof" src="{{ assignment.prof[0].image }}" />
+        </div>
+      </div>
+    </div>
+  </div>
+ 

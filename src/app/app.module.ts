@@ -16,7 +16,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSelectModule} from '@angular/material/select';
+import {Ng7MatBreadcrumbModule} from 'ng7-mat-breadcrumb';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
@@ -37,19 +39,77 @@ const routes: Routes = [
     path: '',
     component: AssignmentsComponent,
     canActivate: [LoginGuard],
+    data:{
+      breadcrumb:[
+        {
+          label:'home',
+          url:'/home'
+        },
+        {
+          label:'list assignment',
+          url:''
+        }
+      ]
+    }
   },
   {
     path: 'home',
     component: AssignmentsComponent,
     canActivate: [LoginGuard],
+    data:{
+      breadcrumb:[
+        {
+          label:'home',
+          url:''
+        }
+      ]
+    }
   },
   {
     path: 'assignment/add',
     component: AddAssignmentComponent,
+    canActivate: [LoginGuard],
+    data:{
+      breadcrumb:[
+        {
+          label:'home',
+          url:'/home'
+        },
+        {
+          label:'list assignment',
+          url:'/'
+        },
+        {
+          label:'add assignment',
+          url:''
+        }
+      ]
+    }
   },
   {
     path: 'assignment/:id',
     component: AssignmentDetailComponent,
+    canActivate: [LoginGuard],
+    data:{
+      breadcrumb:[
+        {
+          label:'home',
+          url:'/home'
+        },
+        {
+          label:'list assignment',
+          url:'/'
+        },
+        {
+          label:'{{id}}',
+          url:''
+        },
+        {
+          label:'detail',
+          url:''
+        }
+      ]
+    }
   },
   {
     path: 'login',
@@ -59,6 +119,26 @@ const routes: Routes = [
     path: 'assignment/:id/edit',
     component: EditAssignmentComponent,
     canActivate: [LoginGuard, AuthGuard],
+    data:{
+      breadcrumb:[
+        {
+          label:'home',
+          url:'/home'
+        },
+        {
+          label:'list assignment',
+          url:'/'
+        },
+        {
+          label:'{{id}}',
+          url:'/assignment/:id'
+        },
+        {
+          label:'edit',
+          url:''
+        }
+      ]
+    }
   },
 ];
 @NgModule({
@@ -81,6 +161,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatPaginatorModule,
     MatIconModule,
     MatDividerModule,
     MatFormFieldModule,
@@ -94,6 +175,7 @@ const routes: Routes = [
     MatSlideToggleModule,
     MatTableModule,
     MatSelectModule,  
+    Ng7MatBreadcrumbModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
     ScrollingModule,

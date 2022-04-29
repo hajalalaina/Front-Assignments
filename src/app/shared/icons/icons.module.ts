@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 
 import { FeatherModule } from 'angular-feather';
-import { Briefcase,Home,List,LogIn,LogOut,PlusCircle,Book,Edit2} from 'angular-feather/icons';
+import { Briefcase,BookOpen,User,Home,List,LogIn,LogOut,PlusCircle,Book,Edit2,Clock} from 'angular-feather/icons';
 const icons = {
   Briefcase,
   Home,
@@ -12,7 +12,10 @@ const icons = {
   PlusCircle,
   Book,
   Edit2,
-  LogOut
+  LogOut,
+  Clock,
+  User,
+  BookOpen
 };
 
 

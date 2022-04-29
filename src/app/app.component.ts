@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { Router,NavigationStart } from '@angular/router';
 import { AssignmentsService } from './shared/assignments.service';
 import { AuthService } from './shared/auth.service';
+import { getUserViaToken } from './utils/token.util';
 
 @Component({
   selector: 'app-root',
@@ -11,26 +12,33 @@ import { AuthService } from './shared/auth.service';
 export class AppComponent implements OnInit{
   titre = 'Assignments...';
   islogged = false;
+  image = '../assets/images/logo.png';
   constructor(
     private router: Router,
     private assignmentsService: AssignmentsService
-  ) {}
+  ) {
+    
+  }
  
   ngOnInit(): void {
-    this.router.events.subscribe(event =>{
-      if (event instanceof NavigationStart){
-            this.isLogged();
-            if(event.url == '/login'){
-              this.islogged = false;
-            }
-          }
-      })
+    // verifie si l'user est logué à chaque changement d'url
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.isLogged();
+        if(event.url === '/login') {
+          this.islogged = false;
+        }
+      }
+    });
   }
   isLogged() {
     const token = localStorage.getItem('token');
     if(token) {
+      console.log("logged",this.islogged);
+      this.image = getUserViaToken().image;
       this.islogged =  true;
     }
+
   }
 
   // genererDonneesDeTest() {

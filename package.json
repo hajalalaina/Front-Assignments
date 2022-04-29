@@ -12,7 +12,6 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.2.0",
-    "@angular/cdk": "^13.2.5",
     "@angular/common": "~13.2.0",
     "@angular/compiler": "~13.2.0",
     "@angular/core": "~13.2.0",
@@ -24,6 +23,7 @@
     "angular-feather": "^6.3.0",
     "express": "^4.17.3",
     "feather-icons": "^4.29.0",
+    "ng7-mat-breadcrumb": "^6.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

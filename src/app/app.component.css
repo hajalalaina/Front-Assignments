@@ -1,6 +1,16 @@
-.content {
-  margin-top: 15px;
-}
+/* .content {
+  margin: auto;
+  width: 50%;
+  padding: 10px; 
+} */
 .example-spacer {
     flex: 1 1 auto;
   }
+.breadcumb-row{
+  background-color: #ffffff;
+}
+.image-prof{
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50%;
+}

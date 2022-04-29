@@ -29,6 +29,7 @@
   >
     Login
   </button>
+  <a mat-button [routerLink]="'/home'"><i-feather name="home" size="24"></i-feather> Home</a>
 </form>
 <p appErreur *ngIf="erreur != ''">{{erreur}}</p>
 <form (ngSubmit)="logout()" #loginForm="ngForm">

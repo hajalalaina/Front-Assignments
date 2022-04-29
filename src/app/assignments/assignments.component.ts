@@ -1,5 +1,6 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { AfterViewInit, Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
 import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from './assignment.model';
@@ -11,8 +12,8 @@ import { Assignment } from './assignment.model';
 })
 export class AssignmentsComponent implements OnInit{
   assignments:Assignment[] = [];
-  displayedColumns: string[] = ['id', 'nom', 'dateDeRendu', 'rendu'];
-
+  assignmentsRendu:Assignment[] = [];
+  assignmentsNonRendu:Assignment[] = [];
   // pagination
   page=1;
   limit=10;
@@ -70,13 +71,17 @@ export class AssignmentsComponent implements OnInit{
     console.log("Dans ngOnInit, appelé avant l'affichage");
     this.getAssignments();
   }
-
+  sortAssignments(assignments:Assignment[]) {
+    this.assignmentsRendu = assignments.filter(a => a.rendu == true);
+    this.assignmentsNonRendu = assignments.filter(a => a.rendu == false);
+  }
   getAssignments() {
       // demander les données au service de gestion des assignments...
       this.assignmentsService.getAssignments(this.page, this.limit)
       .subscribe(reponse => {
         console.log("données arrivées");
         this.assignments = reponse.docs;
+        this.sortAssignments(this.assignments);
         this.page = reponse.page;
         this.limit=reponse.limit;
         this.totalPages=reponse.totalPages;
@@ -89,7 +94,12 @@ export class AssignmentsComponent implements OnInit{
 
       console.log("Après l'appel au service");
   }
-
+  onPageEvent(event:PageEvent) {
+    console.log(event);
+    this.page = event.pageIndex + 1;
+    this.limit = event.pageSize;
+    this.getAssignments();
+  }
 //   getAssignmentsScrollInfini() {
 //     // demander les données au service de gestion des assignments...
 //     this.assignmentsService.getAssignments(this.page, this.limit)
