@@ -1,4 +1,4 @@
-<form
+<!-- <form
   ngForm
   #assignmentForm
   (submit)="onSubmit(); assignmentForm.reset()"
@@ -49,4 +49,149 @@
     color="primary"
     [disabled]="!this.nomAssignment || !this.dateDeRendu || !this.idMatiere"
   >Ajouter</button>
-</form>
+</form> -->
+<i-feather name="github" class="someclass"></i-feather>
+<mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Informations</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Libelle</mat-label>
+        <input
+          matInput
+          placeholder="Last name, First name"
+          formControlName="libelle"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="dateDeRendu"
+          name="date"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Suivant</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Matiere</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Choisir une matière</mat-label>
+        <mat-select formControlName="idMatiere" name="idMatiere">
+          <mat-option
+            *ngFor="let matiere of matieres"
+            [value]="matiere.idMatiere"
+          >
+            {{ matiere.libelle }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Retour</button>
+        <button mat-button matStepperNext>Suivant</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <mat-form-field>
+        <ng-template matStepLabel>Remarque</ng-template>
+
+        <input
+          formControlName="remarque"
+          matInput
+          placeholder="Remarque"
+          name="nom"
+        />
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Retour</button>
+        <button mat-button (click)="stepper.reset()">Réinitialiser</button>
+        <button mat-button (click)="onSubmit()">Ajouter</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-stepper>
+
+<!-- 
+<mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form
+      [formGroup]="firstFormGroup"
+      #assignmentForm
+      (submit)="onSubmit(); assignmentForm.reset()"
+    >
+      <ng-template matStepLabel>Info assignment</ng-template>
+      <input
+        matInput
+        placeholder="Nom de l'assignment"
+        [(ngModel)]="nomAssignment"
+        name="nom"
+        required
+      />
+      <br />
+      <input type="date" [(ngModel)]="dateDeRendu" name="date" required />
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Choisir une matière</ng-template>
+      <form appearance="fill">
+        <select [(ngModel)]="idMatiere" [ngModelOptions]="{ standalone: true }">
+          <option
+            *ngFor="let matiere of matieres"
+            [ngValue]="matiere.idMatiere"
+          >
+            {{ matiere.libelle }}
+          </option>
+        </select>
+      </form>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <form [formGroup]="thirdFormGroup">
+      <ng-template matStepLabel>Ajouter rq</ng-template>
+      <form appearance="fill">
+        <input
+          matInput
+          placeholder="Remarque"
+          [(ngModel)]="remarque"
+          name="nom"
+          required
+        />
+
+        <button
+          mat-stroked-button
+          color="primary"
+          [disabled]="
+            !this.nomAssignment || !this.dateDeRendu || !this.idMatiere
+          "
+        >
+          Ajouter
+        </button> -->
+<!-- </form> -->
+<!-- </form>
+
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Ajouter</button>
+    </div>
+  </mat-step>
+</mat-stepper> -->

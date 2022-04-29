@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { MatieresService } from 'src/app/shared/matieres.service';
@@ -17,25 +18,45 @@ export class AddAssignmentComponent implements OnInit {
   nomAssignment!: string;
   dateDeRendu!: Date;
   idMatiere!: number;
-  remarque: string = "";
+  remarque: string = '';
   rendu: boolean = false;
   note!: number;
+  //stepper
+  isLinear = false;
+  firstFormGroup: any;
+  secondFormGroup: any;
+  thirdFormGroup: any;
 
   constructor(
     private assignmentsService: AssignmentsService,
     private router: Router,
-    private matieresService: MatieresService
+    private matieresService: MatieresService,
+    private _formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.matieresService.getMatieres().subscribe((list: Matiere[]) => {
       this.matieres = list;
     });
+    this.firstFormGroup = this._formBuilder.group({
+      libelle: ['', Validators.required],
+      dateDeRendu: ['', Validators.required],
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      idMatiere: ['', Validators.required],
+    });
+    this.thirdFormGroup = this._formBuilder.group({
+      remarque: [''],
+    });
   }
 
   onSubmit() {
+    console.log(this.firstFormGroup.get('dateDeRendu').value);
+    alert();
     if (!this.nomAssignment || !this.dateDeRendu || !this.idMatiere) return;
-
+    const libelle = this.firstFormGroup.get('libelle').value;
+    const dateDeRendu = this.firstFormGroup.get('dateDeRendu').value;
+    
     console.log('CREATE new assignment, affichage des données ');
     console.log('nomAssignment', this.nomAssignment);
     console.log('dateDeRendu', this.dateDeRendu);
