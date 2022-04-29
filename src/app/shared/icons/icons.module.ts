@@ -3,11 +3,16 @@ import { CommonModule } from '@angular/common';
 
 
 import { FeatherModule } from 'angular-feather';
-import { Camera, Heart, Github } from 'angular-feather/icons';
+import { Briefcase,Home,List,LogIn,LogOut,PlusCircle,Book,Edit2} from 'angular-feather/icons';
 const icons = {
-  Camera,
-  Heart,
-  Github
+  Briefcase,
+  Home,
+  List,
+  LogIn,
+  PlusCircle,
+  Book,
+  Edit2,
+  LogOut
 };
 
 
