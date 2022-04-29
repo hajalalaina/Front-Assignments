@@ -1,94 +1,82 @@
-<main class="container">
-  <h2 style="padding-left: 3.5%">Liste des devoirs </h2>
+<main class="assignment-container">
+  <div class="assignment-banner">
+    <h2 style="padding-left: 3.5%">Liste des devoirs </h2>
+  </div>
   <div class="barrePagination">
-    <mat-paginator [length]="totalPages" [pageSize]="limit" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page" (page)="onPageEvent($event)">
+    <mat-paginator [length]="totalPages" [pageSize]="limit" [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page" (page)="onPageEvent($event)">
     </mat-paginator>
   </div>
-  <!-- <cdk-virtual-scroll-viewport itemSize="150" class="example-viewport" #scroller>
-  <mat-list *cdkVirtualFor="let assignment of assignments" class="example-item">
-    <nav>
-      <a href="/assignment/{{assignment.id}}">
-        <h3 mat-subheader>{{assignment.dateRendu | date:"dd/MM/yy"}}</h3>
-        <mat-list-item>
-          <p *ngIf="assignment.rendu; else nonsoumis" appRendu>
-            Devoir intitulé {{assignment.libelle}}.
-          </p>
-          <ng-template #nonsoumis>
-            <p appNonRendu>Le devoir {{assignment.libelle}} n'a pas encore été rendu.</p>
-          </ng-template>
-          <mat-divider></mat-divider>
-        </mat-list-item>
-      </a>
-    </nav>
-  </mat-list>
-</cdk-virtual-scroll-viewport> -->
   <div class="list-content">
     <div class="list-rendu">
       <div class="rendu-title">Assignment Rendered</div>
       <div class="rendu-bg"><img src="../../assets/image/ok.jpg" /></div>
       <div>
       </div>
-      <cdk-virtual-scroll-viewport appendOnly itemSize="limit" class="example-viewport">
-      <a class="card-link" *cdkVirtualFor="let assignment of assignmentsRendu" href="/assignment/{{assignment.id}}">
-        <div class="example-card">
-          <div class="list-matiere">
-            <img class="image-matiere" src="{{ assignment.matiere[0].image }}" />
-          </div>
-          <div class="list-info">
-            <mat-card-title>{{ assignment.libelle }}</mat-card-title>
-            <mat-card-content class="content-assignment">
-              <div class="icon-item">
-                <i-feather name="book-open" class="icon"></i-feather><span
-                  class="content-item">{{assignment.matiere[0].libelle}}</span>
-              </div>
-              <div class="icon-item">
-                <i-feather name="user" class="icon"></i-feather><span class="content-item"> {{ assignment.auteur[0].nom
-                  }}</span>
-              </div>
-              <div class="icon-item">
-                <i-feather name="clock" class="icon"></i-feather><span class="content-item">{{ assignment.dateRendu |
-                  date: "dd/mm/yy" }}</span>
-              </div>
-            </mat-card-content>
-          </div>
-          <div class="list-prof">
-            <img mat-card-sm-image class="image-prof" src="{{ assignment.prof[0].image }}" />
-          </div>
+      <div class="content-scroll">
+        <a class="card-link" *ngFor="let assignment of assignmentsRendu" href="/assignment/{{assignment.id}}">
+          <div class="example-card">
+            <div class="list-matiere">
+              <img class="image-matiere" src="{{ assignment.matiere[0].image }}" />
+            </div>
+            <div class="list-info">
+              <mat-card-title>{{ assignment.libelle }}</mat-card-title>
+              <mat-card-content class="content-assignment">
+                <div class="icon-item">
+                  <i-feather name="book-open" class="icon"></i-feather><span
+                    class="content-item">{{assignment.matiere[0].libelle}}</span>
+                </div>
+                <div class="icon-item">
+                  <i-feather name="user" class="icon"></i-feather><span class="content-item"> {{
+                    assignment.auteur[0].nom
+                    }}</span>
+                </div>
+                <div class="icon-item">
+                  <i-feather name="clock" class="icon"></i-feather><span class="content-item">{{ assignment.dateRendu |
+                    date: "dd/mm/yy" }}</span>
+                </div>
+              </mat-card-content>
+            </div>
+            <div class="list-prof">
+              <img mat-card-sm-image class="image-prof" src="{{ assignment.prof[0].image }}" />
+            </div>
 
-        </div>
-      </a>
-      </cdk-virtual-scroll-viewport>
+          </div>
+        </a>
+      </div>
     </div>
     <div class="list-rendu">
       <div class="rendu-title">Assignment Not Rendered</div>
       <div class="rendu-bg"><img src="../../assets/image/137-1379308_website-work-in-progress.png" /></div>
       <div>
       </div>
-      <div *ngFor="let assignment of assignmentsNonRendu" class="example-card">
-        <div class="list-matiere">
-          <img class="image-matiere" src="{{ assignment.matiere[0].image }}" />
-        </div>
-        <div class="list-info">
-          <mat-card-title>{{ assignment.libelle }}</mat-card-title>
-          <mat-card-content class="content-assignment">
-            <div class="icon-item">
-              <i-feather name="book-open" class="icon"></i-feather><span
-                class="content-item">{{assignment.matiere[0].libelle}}</span>
+      <div class="content-scroll">
+        <a class="card-link" *ngFor="let assignment of assignmentsNonRendu" href="/assignment/{{assignment.id}}">
+          <div class="example-card">
+            <div class="list-matiere">
+              <img class="image-matiere" src="{{ assignment.matiere[0].image }}" />
             </div>
-            <div class="icon-item">
-              <i-feather name="user" class="icon"></i-feather><span class="content-item"> {{
-                assignment.auteur[0].nom }}</span>
+            <div class="list-info">
+              <mat-card-title>{{ assignment.libelle }}</mat-card-title>
+              <mat-card-content class="content-assignment">
+                <div class="icon-item">
+                  <i-feather name="book-open" class="icon"></i-feather><span
+                    class="content-item">{{assignment.matiere[0].libelle}}</span>
+                </div>
+                <div class="icon-item">
+                  <i-feather name="user" class="icon"></i-feather><span class="content-item"> {{
+                    assignment.auteur[0].nom }}</span>
+                </div>
+                <div class="icon-item">
+                  <i-feather name="clock" class="icon"></i-feather><span class="content-item">{{ assignment.dateRendu |
+                    date: "dd/mm/yy" }}</span>
+                </div>
+              </mat-card-content>
             </div>
-            <div class="icon-item">
-              <i-feather name="clock" class="icon"></i-feather><span class="content-item">{{ assignment.dateRendu |
-                date: "dd/mm/yy" }}</span>
+            <div class="list-prof">
+              <img mat-card-sm-image class="image-prof" src="{{ assignment.prof[0].image }}" />
             </div>
-          </mat-card-content>
-        </div>
-        <div class="list-prof">
-          <img mat-card-sm-image class="image-prof" src="{{ assignment.prof[0].image }}" />
-        </div>
+          </div>
+        </a>
       </div>
     </div>
-  </div>
- 
