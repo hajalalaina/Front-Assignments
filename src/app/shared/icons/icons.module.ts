@@ -1,12 +1,26 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-
 import { FeatherModule } from 'angular-feather';
-import { Briefcase,BookOpen,User,Home,List,LogIn,LogOut,PlusCircle,Book,Edit2,Clock} from 'angular-feather/icons';
+import {
+  Book,
+  BookOpen,
+  Briefcase,
+  CheckSquare,
+  Clock,
+  Edit,
+  Edit2,
+  Home,
+  List,
+  LogIn,
+  LogOut,
+  PlusCircle,
+  Trash2,
+  User,
+} from 'angular-feather/icons';
+
 const icons = {
   Briefcase,
   Home,
+  Edit,
   List,
   LogIn,
   PlusCircle,
@@ -15,16 +29,13 @@ const icons = {
   LogOut,
   Clock,
   User,
-  BookOpen
+  BookOpen,
+  CheckSquare,
+  Trash2,
 };
 
-
 @NgModule({
-  imports: [
-    FeatherModule.pick(icons)
-  ],
-  exports: [
-    FeatherModule
-  ]
+  imports: [FeatherModule.pick(icons)],
+  exports: [FeatherModule],
 })
-export class IconsModule { }
+export class IconsModule {}

@@ -30,43 +30,85 @@
 </div> -->
 
 <div *ngIf="assignmentTransmis" class="flex flex-row card-detail">
-  <div class="bg-red-500">
+  <div>
     <img
-      class="w-[400px] h-[400px]"
+      class="w-[450px] h-[450px] rounded-xl"
       src="{{ assignmentTransmis.matiere[0].image }}"
     />
   </div>
-  <div class="min-w-[400px] h-[400px] p-2">
-    <div class="flex gap-2 mb-1">
-      <img
-        class="w-[50px] h-[50px] rounded-full"
-        src="{{ assignmentTransmis.auteur[0].image }}"
-      />
-      <div class="flex flex-col">
-        <div class="text-lg">{{ assignmentTransmis.auteur[0].nom }}</div>
-        <div class="text-xs font-[100] text-[#0000008a]">
-          Etudiant-{{ assignmentTransmis.auteur[0].idUser }}
+  <div class="max-w-[600px] h-[400px] p-5">
+    <div class="flex">
+      <div class="flex gap-2 mb-1">
+        <img
+          class="w-[50px] h-[50px] rounded-full"
+          src="{{ assignmentTransmis.auteur[0].image }}"
+        />
+        <div class="flex flex-col">
+          <div class="text-lg">{{ assignmentTransmis.auteur[0].nom }}</div>
+          <div class="text-xs font-[100] text-[#0000008a]">
+            Etudiant-{{ assignmentTransmis.auteur[0].idUser }}
+          </div>
+        </div>
+      </div>
+      <div style="margin-left: auto">
+        <button
+          mat-icon-button
+          class="edit-icon"
+          (click)="onClickEdit()"
+          [disabled]="!isLoggedIn()"
+        >
+          <i-feather name="edit" size="12"></i-feather>
+        </button>
+        <button
+          mat-icon-button
+          class="trash-icon"
+          (click)="onDelete()"
+          [disabled]="!isLoggedIn()"
+        >
+          <i-feather name="trash-2" size="12"></i-feather>
+        </button>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="flex mt-1">
+      <div class="text-xl mt-1">{{ assignmentTransmis.libelle }}</div>
+      <div
+        *ngIf="assignmentTransmis.note"
+        class="font-medium"
+        style="margin-left: auto"
+      >
+        <div class="border-2 p-2 border-red-700 text-red-600">
+          Note: {{ assignmentTransmis.note }} /20
         </div>
       </div>
     </div>
-    <mat-divider></mat-divider>
-    <div class="text-xl mt-1">{{ assignmentTransmis.libelle }}</div>
-    <div class="text-sm font-thin text-[#0000008a]">
-      {{ assignmentTransmis.matiere[0].libelle }}
-    </div>
-    <div>
+
+    <div class="flex flex-row gap-1 mt-4 min-w-[400px]">
       <div
-        style="padding-left: 10px !important"
-        class="w-1/2 rounded-[10px] icon-item  text-black text-[10px]"
+        class="w-1/3 p-2 bg-[#37231c] rounded-t-2xl icon-item text-white text-[12px]"
       >
         <i-feather name="clock" class="icon"></i-feather
         ><span class="content-item">{{
           assignmentTransmis.dateRendu | date: "mediumDate"
         }}</span>
       </div>
-    </div>
 
-    <!-- <div class="flex gap-2 mb-1">
+      <div
+        class="w-1/3 bg-[#60311f] rounded-t-2xl text-white icon-item text-[12px]"
+      >
+        <i-feather name="user" class="icon"></i-feather
+        ><span> {{ assignmentTransmis.prof[0].nom }}</span>
+      </div>
+
+      <div
+        class="w-1/3 icon-item justify-center bg-[#be947c] rounded-t-2xl text-white text-[12px]"
+      >
+        <i-feather name="book-open" class="icon"></i-feather
+        ><span> {{ assignmentTransmis.matiere[0].libelle }}</span>
+      </div>
+
+      <!-- <div class="flex gap-2 mb-1">
     <img
       class="w-[50px] h-[50px] rounded-full"
       src="{{ assignmentTransmis.auteur[0].image }}"
@@ -87,5 +129,14 @@
       mountainous terrain, the Shiba Inu was originally bred for hunting.
     </p>
   </div> -->
+    </div>
+    <div class="pt-9">
+      <div class="font-medium">
+        Remarque
+        <div>
+          <div class="font-extralight">{{ assignmentTransmis.rq }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

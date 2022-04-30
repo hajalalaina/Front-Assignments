@@ -30,8 +30,7 @@
         <div class="content-scroll p-4">
           <a
             *ngFor="let assignment of assignmentsRendu"
-            href="assignment/{{ assignment.id }}"
-     
+            (click) = "openModal(assignment.id)"
           >
             <div
               class="default-shadow flex bg-[#EBECF0] rounded-md my-2 p-2 gap-x-2"
