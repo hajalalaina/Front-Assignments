@@ -1,6 +1,8 @@
 import { Component, NgZone, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { AssignmentsService } from '../shared/assignments.service';
+import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
 import { Assignment } from './assignment.model';
 
 @Component({
@@ -21,54 +23,21 @@ export class AssignmentsComponent implements OnInit {
   hasNextPage = true;
   prevPage = 1;
   nextPage = 2;
+  isShow: boolean = false;
 
   constructor(
     private assignmentsService: AssignmentsService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    public dialog: MatDialog
   ) {}
 
-  // @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
-
-  // ngAfterViewInit():void{
-  //   this.scroller.elementScrolled().pipe(
-  //     tap(event => {
-  //       //console.log(event);
-  //     }),
-  //     map(event => {
-  //       return this.scroller.measureScrollOffset('bottom');
-  //     }),
-  //     tap(val => {
-  //       //console.log("distance par rapport à la fin = " + val)
-  //     }),
-  //     pairwise(),
-  //     tap(val => {
-  //       /*
-  //       if(val[0] < val[1]) console.log("on monte")
-  //       else console.log("on descend")
-  //       */
-  //     }),
-  //     filter(([y1, y2]) => (y2 < y1 && y2 < 140)),
-  //     tap(val => {
-  //       //console.log(val)
-  //     }),
-  //     throttleTime(200),
-  //     tap(val => {
-  //       //console.log(val);
-  //     })
-  //   ).subscribe(() => {
-  //     // ici traitement final
-  //     console.log("On va chercher de nouveaux assignments !")
-
-  //     // on le fait en tache de fond...
-  //     this.ngZone.run(() => {
-  //       this.page = this.nextPage;
-  //       this.getAssignmentsScrollInfini();
-  //     })
-  //   })
-  // }
-
+  openModal(id: number) {
+    const dialogRef = this.dialog.open(AssignmentDetailComponent, {
+      data: { id: id },
+    });
+  }
   testDark() {
-    console.log('click dark mode');
+    //TODO: dark mode
     document.documentElement.classList.add('dark');
   }
   removeDark() {
@@ -109,27 +78,6 @@ export class AssignmentsComponent implements OnInit {
     this.limit = event.pageSize;
     this.getAssignments();
   }
-  //   getAssignmentsScrollInfini() {
-  //     // demander les données au service de gestion des assignments...
-  //     this.assignmentsService.getAssignments(this.page, this.limit)
-  //     .subscribe(reponse => {
-  //       console.log("données arrivées");
-  //       //this.assignments = reponse.docs;
-  //       // au lieu de remplacer les assignments chargés par les nouveaux, on les ajoute
-  //       this.assignments = this.assignments.concat(reponse.docs);
-
-  //       this.page = reponse.page;
-  //       this.limit=reponse.limit;
-  //       this.totalPages=reponse.totalPages;
-  //       this.pagingCounter=reponse.pagingCounter;
-  //       this.hasPrevPage=reponse.hasPrevPage;
-  //       this.hasNextPage=reponse.hasNextPage;
-  //       this.prevPage= reponse.prevPage;
-  //       this.nextPage= reponse.nextPage;
-  //     });
-
-  //     console.log("Après l'appel au service");
-  // }
 
   pagePrecedente() {
     this.page--;

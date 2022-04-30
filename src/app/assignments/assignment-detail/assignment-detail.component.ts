@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { AuthService } from 'src/app/shared/auth.service';
 import { Assignment } from '../assignment.model';
 
+export interface DialogData {
+  id: number;
+}
 @Component({
   selector: 'app-assignment-detail',
   templateUrl: './assignment-detail.component.html',
@@ -16,17 +20,20 @@ export class AssignmentDetailComponent implements OnInit {
     private assignmentsService: AssignmentsService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public dialogRef: MatDialogRef<AssignmentDetailComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 
   ngOnInit(): void {
     // on va récupérer l'id dans l'URL,
     // le + permet de forcer en number (au lieu de string)
-    const id = +this.route.snapshot.params['id'];
-    console.log('id : ' + id);
-    this.getAssignment(id);
+    // const id = +this.route.snapshot.params['id'];
+    this.getAssignment(this.data.id);
   }
-
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
   getAssignment(id: number) {
     // on demande au service de gestion des assignment,
     // l'assignment qui a cet id !

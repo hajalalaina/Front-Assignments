@@ -1,18 +1,6 @@
 <main class="assignment-container">
-  <!-- <div class="assignment-banner">
-    <div class="assignment-banner-content">
-      <div class='banner-title'>Assignment lists</div>
-      <div class='banner-text'>Time to check your list</div>
-    </div>
-  </div> -->
   <div class="flex justify-center items-center flex-col">
     <div class="w-full">
-      <!-- <button (click)="testDark()" class="bg-black text-white">
-        Dark mode
-      </button>
-      <button (click)="removeDark()" class="bg-black text-white">
-        Remove mode
-      </button> -->
       <mat-paginator
         class="bg-yellow-500"
         [length]="totalPages"
@@ -43,10 +31,10 @@
           <a
             class=""
             *ngFor="let assignment of assignmentsRendu"
-            href="/assignment/{{ assignment.id }}"
+            (click)="openModal(assignment.id)"
           >
             <div
-              class="default-shadow flex bg-[#EBECF0]  rounded-md my-2 p-2 gap-x-2"
+              class="default-shadow flex bg-[#EBECF0] rounded-md my-2 p-2 gap-x-2"
             >
               <div>
                 <img
@@ -110,11 +98,7 @@
           />
         </div>
         <div class="content-scroll">
-          <a
-            class="card-link"
-            *ngFor="let assignment of assignmentsNonRendu"
-            href="/assignment/{{ assignment.id }}"
-          >
+          <a class="card-link" *ngFor="let assignment of assignmentsNonRendu">
             <div class="flex example-card">
               <div>
                 <img
