@@ -9,7 +9,6 @@ import { User } from '../login/user.model';
 export class UsersService {
   loggedIn = false;
   constructor(private http: HttpClient) {}
-  // url = 'http://localhost:8010/api/assignments';
   url = environment.api + '/api/assignments';
   getUser(login: string, password: string): Observable<User | undefined> {
     return this.http.get<User>(`${this.url}/users/${login}/${password}`);

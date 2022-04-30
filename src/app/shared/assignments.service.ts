@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Assignment } from '../assignments/assignment.model';
+import { getToken } from '../utils/token.util';
 import { LoggingService } from './logging.service';
 
 @Injectable({
@@ -18,7 +19,6 @@ export class AssignmentsService {
     this.loggingService.setNiveauTrace(2);
   }
 
-  // url = 'http://localhost:8010/api/assignments';
   url = environment.api + '/api/assignments';
 
   getAssignments(page: number, limit: number): Observable<any> {
@@ -28,7 +28,10 @@ export class AssignmentsService {
     // non pas directement les données, mais en renvoyant un objet "Observable"
     //return of(this.assignments);
     return this.http.get<Assignment[]>(
-      this.url + '?page=' + page + '&limit=' + limit
+      this.url + '?page=' + page + '&limit=' + limit,
+      {
+        headers: new HttpHeaders({ Authorization: 'Bearer ' + getToken() }),
+      }
     );
   }
 
@@ -36,7 +39,9 @@ export class AssignmentsService {
     //let a = this.assignments.find(a => a.id === id);
     //return of(a);
     return this.http
-      .get<Assignment[]>(`${this.url}/${id}`)
+      .get<Assignment[]>(`${this.url}/${id}`, {
+        headers: new HttpHeaders({ Authorization: 'Bearer ' + getToken() }),
+      })
       .pipe(catchError(this.handleError<any>(id)));
   }
 
@@ -54,7 +59,9 @@ export class AssignmentsService {
 
     this.loggingService.log(assignment.libelle, 'ajouté');
 
-    return this.http.post<Assignment>(this.url, assignment);
+    return this.http.post<Assignment>(this.url, assignment, {
+      headers: new HttpHeaders({ Authorization: 'Bearer ' + getToken() }),
+    });
 
     //return of("Assignment ajouté");
   }
@@ -62,7 +69,9 @@ export class AssignmentsService {
   updateAssignment(assignment: Assignment): Observable<any> {
     this.loggingService.log(assignment.libelle, 'modifié');
 
-    return this.http.put<Assignment>(this.url, assignment);
+    return this.http.put<Assignment>(this.url, assignment, {
+      headers: new HttpHeaders({ Authorization: 'Bearer ' + getToken() }),
+    });
   }
 
   deleteAssignment(assignment: Assignment): Observable<any> {
@@ -72,37 +81,8 @@ export class AssignmentsService {
     this.loggingService.log(assignment.libelle, 'supprimé');
 
     //return of("Assignment supprimé");
-    return this.http.delete(this.url + '/' + assignment._id);
+    return this.http.delete(this.url + '/' + assignment._id, {
+      headers: new HttpHeaders({ Authorization: 'Bearer ' + getToken() }),
+    });
   }
-
-  // peuplerBD() {
-  //   bdInitialAssignments.forEach(a => {
-  //     let newAssignment = new Assignment();
-  //     newAssignment.libelle = a.libelle;
-  //     newAssignment.dateDeRendu = new Date(a.dateDeRendu);
-  //     newAssignment.rendu = a.rendu;
-  //     newAssignment.id = a.id;
-
-  //     this.addAssignment(newAssignment)
-  //     .subscribe(reponse => {
-  //       console.log(reponse.message);
-  //     })
-  //   })
-  // }
-
-  // peuplerBDAvecForkJoin(): Observable<any> {
-  //   const appelsVersAddAssignment:any = [];
-
-  //   bdInitialAssignments.forEach((a) => {
-  //     const nouvelAssignment:any = new Assignment();
-
-  //     nouvelAssignment.id = a.id;
-  //     nouvelAssignment.libelle = a.libelle;
-  //     nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
-  //     nouvelAssignment.rendu = a.rendu;
-
-  //     appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
-  //   });
-  //   return forkJoin(appelsVersAddAssignment); // renvoie un seul Observable pour dire que c'est fini
-  // }
 }

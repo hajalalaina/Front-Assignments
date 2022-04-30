@@ -1,5 +1,4 @@
-{{testEnv}}
-<mat-toolbar style="background-color: #000b39; color: white;" *ngIf="islogged">
+<mat-toolbar style="background-color: #000b39; color: white" *ngIf="islogged">
   <mat-toolbar-row>
     <div class="logo">
       <img src="../assets/image/ASSIGNMENTS.. (1).png" />
@@ -26,11 +25,20 @@
         </div>
       </a>
     </div>
-    <div style="margin-left:auto; display: flex;">
-      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <div style="margin-left: auto; display: flex">
+      <button
+        mat-icon-button
+        class="example-icon favorite-icon"
+        aria-label="Example icon-button with heart icon"
+      >
         <img mat-card-sm-image class="image-prof" src="{{ image }}" />
       </button>
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" (click)="logOut()">
+      <button
+        mat-icon-button
+        class="example-icon"
+        aria-label="Example icon-button with share icon"
+        (click)="logOut()"
+      >
         <i-feather name="log-out" size="12"></i-feather>
       </button>
     </div>
@@ -38,7 +46,5 @@
 </mat-toolbar>
 
 <div class="content">
-
   <router-outlet></router-outlet>
-
 </div>

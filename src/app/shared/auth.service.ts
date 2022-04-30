@@ -33,7 +33,6 @@ export class AuthService {
     if (token) {
       const tokenValue: any = jwt_decode(token);
       if (tokenValue.user.role == 1) {
-        console.log('guard auth', tokenValue.user);
         return true;
       }
     }
