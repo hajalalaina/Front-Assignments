@@ -15,7 +15,7 @@
       class="flex flex-row justify-center space-x-[25px] bg-yellow-500 p-6 w-full min-h-[500px]"
     >
       <div
-        class="font-normal w-[30%] bg-white rounded-md p-2 py-2 px-3 text-sm shadow-lg shadow-indigo-500/40 focus:outline-none"
+        class="font-normal w-[50%] sm:w-[30%] bg-white rounded-md p-2 py-2 px-3 text-sm shadow-lg shadow-indigo-500/40 focus:outline-none"
       >
         <div class="flex">
           <div
@@ -31,7 +31,6 @@
           <a
             *ngFor="let assignment of assignmentsRendu"
             href="assignment/{{ assignment.id }}"
-     
           >
             <div
               class="default-shadow flex bg-[#EBECF0] rounded-md my-2 p-2 gap-x-2"
@@ -82,11 +81,11 @@
         </div>
       </div>
       <div
-        class="font-normal w-[30%] bg-white rounded-md p-2 py-2 px-3 text-sm shadow-lg shadow-indigo-500/40 focus:outline-none"
+        class="font-normal w-[50%] sm:w-[30%] bg-white rounded-md p-2 py-2 px-3 text-sm shadow-lg shadow-indigo-500/40 focus:outline-none"
       >
         <div class="flex">
           <div
-            class="bg-red-500 p-2  ml-3 text-xs rounded-[10px] text-white font-medium"
+            class="bg-red-500 p-2 ml-3 text-xs rounded-[10px] text-white font-medium"
           >
             Not Rendered
           </div>
