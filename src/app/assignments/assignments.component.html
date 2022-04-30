@@ -2,7 +2,7 @@
   <div class="flex justify-center items-center flex-col">
     <div class="w-full">
       <mat-paginator
-        class="bg-yellow-500"
+        class="bg-yellow-500 text-black font-medium"
         [length]="totalDocs"
         [pageSize]="limit"
         [pageSizeOptions]="[5, 10, 25, 100]"
@@ -30,7 +30,7 @@
         <div class="content-scroll p-4">
           <a
             *ngFor="let assignment of assignmentsRendu"
-            (click) = "openModal(assignment.id)"
+            (click)="openModal(assignment.id)"
           >
             <div
               class="default-shadow flex bg-[#EBECF0] rounded-md my-2 p-2 gap-x-2"
