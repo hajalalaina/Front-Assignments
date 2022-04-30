@@ -81,6 +81,7 @@ export class AssignmentsService {
     this.loggingService.log(assignment.libelle, 'supprimé');
 
     //return of("Assignment supprimé");
+    console.log('assignment.id : ' + assignment._id);
     return this.http.delete(this.url + '/' + assignment._id, {
       headers: new HttpHeaders({ Authorization: 'Bearer ' + getToken() }),
     });

@@ -58,9 +58,10 @@ export class AssignmentDetailComponent implements OnInit {
       .deleteAssignment(this.assignmentTransmis)
       .subscribe((reponse) => {
         console.log(reponse.message);
-        this.dialogRef.close();
+
         // et on navigue vers la page d'accueil pour afficher la liste
-        this.router.navigate(['/home']);
+        // this.router.navigate(['/home']);
+        this.dialogRef.close();
       });
   }
   onClickEdit() {

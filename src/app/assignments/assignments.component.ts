@@ -36,6 +36,9 @@ export class AssignmentsComponent implements OnInit {
     const dialogRef = this.dialog.open(AssignmentDetailComponent, {
       data: { id: id },
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.getAssignments();
+    });
   }
   testDark() {
     //TODO: dark mode
