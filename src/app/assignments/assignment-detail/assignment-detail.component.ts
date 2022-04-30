@@ -26,14 +26,16 @@ export class AssignmentDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // on va récupérer l'id dans l'URL,
-    // le + permet de forcer en number (au lieu de string)
-    const id = +this.route.snapshot.params['id'];
+    let id: any;
+    if (this.data.id) {
+      id = this.data.id;
+    } else {
+      id = +this.route.snapshot.params['id'];
+    }
     this.getAssignment(this.data.id);
-    // this.getAssignment(id);
   }
   onNoClick(): void {
-    // this.dialogRef.close();
+    this.dialogRef.close();
   }
   getAssignment(id: number) {
     // on demande au service de gestion des assignment,
@@ -56,11 +58,13 @@ export class AssignmentDetailComponent implements OnInit {
       .deleteAssignment(this.assignmentTransmis)
       .subscribe((reponse) => {
         console.log(reponse.message);
+        this.dialogRef.close();
         // et on navigue vers la page d'accueil pour afficher la liste
         this.router.navigate(['/home']);
       });
   }
   onClickEdit() {
+    this.dialogRef.close();
     this.router.navigate(['/assignment', this.assignmentTransmis?.id, 'edit']);
   }
 

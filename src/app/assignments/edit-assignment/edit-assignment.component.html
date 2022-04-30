@@ -1,40 +1,86 @@
-<div class="container" *ngIf="assignment">
-  <h1>Edition de l'assignment {{assignment.libelle}}</h1>
-  <form ngForm class="form" #formupdate (submit)="onSaveAssignment(); formupdate.reset(); ">
-    <mat-form-field>
-      <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu" name="date">
-      <mat-datepicker-toggle matSuffix [for]="picker">
-      </mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Matiere</mat-label>
-      <mat-select [(ngModel)]="matiereSelected" name="mat">
-        <mat-option *ngFor="let mat of matieres" [value]="mat.idMatiere">
-          {{mat.libelle}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <textarea matInput placeholder="Edition de la remarque" [(ngModel)]="remarque" name="remarque"></textarea>
-    </mat-form-field>
- 
-    <mat-form-field>
-      <mat-label>Note</mat-label>
-      <input [(ngModel)]="note" name="note" matInput type="number" class="example-right-align" placeholder="0" min="0" max="20" (input)="rendered()" >
-      <span matSuffix>/20</span>
-      
-    </mat-form-field>
+<div class="bg-yellow-500 min-h-[100vh] flex justify-center">
+  <div
+    class=" p-2 py-2 px-3 text-sm shadow-lg shadow-indigo-500/40 focus:outline-none container m-auto max-w-xl bg-white"
+    *ngIf="assignment"
+  >
+    <div class="text-2xl">Edition de l'assignment {{ assignment.libelle }}</div>
+    <mat-divider></mat-divider>
+    <form
+      ngForm
+      class="form"
+      style="margin-top: 36px"
+      #formupdate
+      (submit)="onSaveAssignment(); formupdate.reset()"
+    >
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Edition du nom"
+          [(ngModel)]="nomAssignment"
+          name="assignment-name"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="Edition de la date"
+          [(ngModel)]="dateDeRendu"
+          name="date"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Matiere</mat-label>
+        <mat-select [(ngModel)]="matiereSelected" name="mat">
+          <mat-option *ngFor="let mat of matieres" [value]="mat.idMatiere">
+            {{ mat.libelle }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea
+          matInput
+          placeholder="Edition de la remarque"
+          [(ngModel)]="remarque"
+          name="remarque"
+        ></textarea>
+      </mat-form-field>
 
-    <mat-checkbox  [checked]="assignment.rendu" (change)="onRenderChecked($event)" #rendu>Rendu</mat-checkbox>
-   
+      <mat-form-field>
+        <mat-label>Note</mat-label>
+        <input
+          [(ngModel)]="note"
+          name="note"
+          matInput
+          type="number"
+          class="example-right-align"
+          placeholder="0"
+          min="0"
+          max="20"
+          (input)="rendered()"
+        />
+        <span matSuffix>/20</span>
+      </mat-form-field>
 
-    <mat-error *ngIf="erreur != ''">{{erreur}}</mat-error>
-    <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateDeRendu))">
-      Sauver
-    </button>
-  </form>
+      <mat-checkbox
+        [checked]="assignment.rendu"
+        (change)="onRenderChecked($event)"
+        #rendu
+        >Rendu</mat-checkbox
+      >
+
+      <mat-error *ngIf="erreur != ''">{{ erreur }}</mat-error>
+      <button
+        mat-raised-button
+        color="primary"
+        class="mt-4"
+        [disabled]="!nomAssignment || !dateDeRendu || !matiereSelected"
+      >
+        Sauver
+      </button>
+    </form>
+  </div>
 </div>
