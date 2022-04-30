@@ -34,13 +34,7 @@ export class LoginGuard implements CanActivate {
         const tokenValue: any = jwt_decode(token);
         let expired: boolean = true;
         expired = new Date(tokenValue.exp * 1000) < new Date();
-        console.log(tokenValue);
-        console.log(
-          'expired?',
-          expired,
-          ' at ',
-          new Date(tokenValue.exp * 1000)
-        );
+
         if (expired) {
           this.router.navigate(['/login']);
           localStorage.removeItem('token');

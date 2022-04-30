@@ -1,21 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../login/user.model';
 import jwt_decode from 'jwt-decode';
-import {  Observable } from 'rxjs';
-
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { User } from '../login/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   loggedIn = false;
-  url = 'http://localhost:8010/api/users/login';
+  url = environment.api + '/api/users/login';
   token: string = '';
 
   constructor(private http: HttpClient) {}
 
-  logIn(login: string, password: string):Observable<User>  {
+  logIn(login: string, password: string): Observable<User> {
     const body = {
       nom: login,
       mdp: password,
@@ -33,7 +33,6 @@ export class AuthService {
     if (token) {
       const tokenValue: any = jwt_decode(token);
       if (tokenValue.user.role == 1) {
-        console.log('guard auth', tokenValue.user);
         return true;
       }
     }
