@@ -5,10 +5,16 @@
       <div class='banner-text'>Time to check your list</div>
     </div>
   </div> -->
-  <div class="assignment-content bg-red-600">
-    <div class="bg-green-500 barrePagination">
+  <div class="flex justify-center items-center flex-col">
+    <div class="w-full">
+      <!-- <button (click)="testDark()" class="bg-black text-white">
+        Dark mode
+      </button>
+      <button (click)="removeDark()" class="bg-black text-white">
+        Remove mode
+      </button> -->
       <mat-paginator
-        class="bg-black text-white"
+        class="bg-yellow-500"
         [length]="totalPages"
         [pageSize]="limit"
         [pageSizeOptions]="[5, 10, 25, 100]"
@@ -17,47 +23,62 @@
       >
       </mat-paginator>
     </div>
-    <div class="list-content">
-      <div class="list-rendu">
-        <div class="rendu-title">
-          <div class="rendu"></div>
-          Assignment Rendered
+    <div
+      class="flex flex-row justify-center space-x-[25px] bg-yellow-500 p-6 w-full min-h-[500px]"
+    >
+      <div
+        class="font-normal w-[30%] bg-white rounded-md p-2 py-2 px-3 text-sm shadow-lg shadow-indigo-500/40 focus:outline-none"
+      >
+        <div class="flex">
+          <div
+            class="bg-green-500 p-2 text-xs rounded-[10px] text-white font-medium"
+          >
+            Rendered
+          </div>
         </div>
-        <div class="rendu-bg"><img src="../../assets/image/ok.jpg" /></div>
-        <div></div>
-        <div class="content-scroll">
+        <div class="p-4">
+          <img class="h-[200px]" src="../../assets/image/ok.jpg" />
+        </div>
+        <div class="content-scroll p-4">
           <a
-            class="card-link"
+            class=""
             *ngFor="let assignment of assignmentsRendu"
             href="/assignment/{{ assignment.id }}"
           >
-            <div class="example-card">
-              <div class="list-matiere">
+            <div
+              class="default-shadow flex bg-[#EBECF0]  rounded-md my-2 p-2 gap-x-2"
+            >
+              <div>
                 <img
-                  class="image-matiere"
+                  class="w-[100px] h-[100px] rounded-[10px]"
                   src="{{ assignment.matiere[0].image }}"
                 />
               </div>
               <div class="list-info">
-                <mat-card-title>{{ assignment.libelle }}</mat-card-title>
-                <mat-card-content class="content-assignment">
-                  <div class="icon-item">
-                    <i-feather name="book-open" class="icon"></i-feather
-                    ><span class="content-item">{{
+                <mat-card-title class="text-black w-full text-lg">{{
+                  assignment.libelle
+                }}</mat-card-title>
+                <mat-card-content
+                  class="mt-[7px] flex flex-wrap flex-row content-assignment"
+                >
+                  <div class="w-1/2 icon-item">
+                    <i-feather name="book-open" class="icon"></i-feather>
+                    <span class="content-item">{{
                       assignment.matiere[0].libelle
                     }}</span>
                   </div>
-                  <div class="icon-item">
-                    <i-feather name="user" class="icon"></i-feather
-                    ><span class="content-item">
-                      {{ assignment.auteur[0].nom }}</span
-                    >
-                  </div>
-                  <div class="icon-item">
+                  <div
+                    style="padding-left: 10px !important"
+                    class="w-1/2 rounded-[10px] icon-item bg-blue-300 text-black text-[10px]"
+                  >
                     <i-feather name="clock" class="icon"></i-feather
                     ><span class="content-item">{{
                       assignment.dateRendu | date: "dd/mm/yy"
                     }}</span>
+                  </div>
+                  <div class="w-1/2 icon-item">
+                    <i-feather name="user" class="icon"></i-feather
+                    ><span> {{ assignment.auteur[0].nom }}</span>
                   </div>
                 </mat-card-content>
               </div>
@@ -72,27 +93,32 @@
           </a>
         </div>
       </div>
-      <div class="list-rendu">
-        <div class="rendu-title">
-          <div class="non-rendu"></div>
-          Assignment Not Rendered
+      <div
+        class="w-[30%] bg-white rounded-md p-2 py-2 px-3 text-sm font-semibold shadow-lg shadow-indigo-500/40 focus:outline-none"
+      >
+        <div class="flex">
+          <div
+            class="bg-red-500 p-2 text-xs rounded-[10px] text-white font-medium"
+          >
+            Not Rendered
+          </div>
         </div>
-        <div class="rendu-bg">
+        <div class="p-4">
           <img
+            class="h-[200px]"
             src="../../assets/image/137-1379308_website-work-in-progress.png"
           />
         </div>
-        <div></div>
         <div class="content-scroll">
           <a
             class="card-link"
             *ngFor="let assignment of assignmentsNonRendu"
             href="/assignment/{{ assignment.id }}"
           >
-            <div class="example-card">
-              <div class="list-matiere">
+            <div class="flex example-card">
+              <div>
                 <img
-                  class="image-matiere"
+                  class="w-[100px] h-[100px]"
                   src="{{ assignment.matiere[0].image }}"
                 />
               </div>
