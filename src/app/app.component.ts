@@ -1,6 +1,5 @@
 import { Component,OnInit } from '@angular/core';
 import { Router,NavigationStart } from '@angular/router';
-import { AssignmentsService } from './shared/assignments.service';
 import { AuthService } from './shared/auth.service';
 import { getUserViaToken } from './utils/token.util';
 
@@ -15,7 +14,7 @@ export class AppComponent implements OnInit{
   image = '../assets/images/logo.png';
   constructor(
     private router: Router,
-    private assignmentsService: AssignmentsService
+    private authService: AuthService
   ) {
     
   }
@@ -40,7 +39,11 @@ export class AppComponent implements OnInit{
     }
 
   }
-
+  logOut(){
+    this.authService.logOut();
+    this.islogged = false;
+    this.router.navigate(['/login']);
+  }
   // genererDonneesDeTest() {
   //   //this.assignmentsService.peuplerBD();
   //   this.assignmentsService.peuplerBDAvecForkJoin().subscribe(() => {

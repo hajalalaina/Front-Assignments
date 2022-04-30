@@ -10,3 +10,7 @@ body {
   margin: 20px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+@font-face {
+  font-family: "Candy";
+  src: local("Candy"), url(./assets/fonts/Septacharge-jELZv.ttf) format("truetype");
+}

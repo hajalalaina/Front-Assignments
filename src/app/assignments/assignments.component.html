@@ -1,15 +1,22 @@
 <main class="assignment-container">
   <div class="assignment-banner">
-    <h2 style="padding-left: 3.5%">Liste des devoirs </h2>
+    <div class="assignment-banner-content">
+      <div class='banner-title'>Assignment lists</div>
+      <div class='banner-text'>Time to check your list</div>
+    </div>
   </div>
+<div class="assignment-content">
   <div class="barrePagination">
     <mat-paginator [length]="totalPages" [pageSize]="limit" [pageSizeOptions]="[5, 10, 25, 100]"
       aria-label="Select page" (page)="onPageEvent($event)">
     </mat-paginator>
+    
   </div>
   <div class="list-content">
     <div class="list-rendu">
-      <div class="rendu-title">Assignment Rendered</div>
+      <div class="rendu-title">
+        <div class="rendu"></div>Assignment Rendered
+      </div>
       <div class="rendu-bg"><img src="../../assets/image/ok.jpg" /></div>
       <div>
       </div>
@@ -46,7 +53,9 @@
       </div>
     </div>
     <div class="list-rendu">
-      <div class="rendu-title">Assignment Not Rendered</div>
+      <div class="rendu-title">
+        <div class="non-rendu"></div>Assignment Not Rendered
+      </div>
       <div class="rendu-bg"><img src="../../assets/image/137-1379308_website-work-in-progress.png" /></div>
       <div>
       </div>
@@ -80,3 +89,5 @@
         </a>
       </div>
     </div>
+  </div>
+</div>
