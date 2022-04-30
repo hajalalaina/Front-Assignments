@@ -49,29 +49,19 @@ export class AddAssignmentComponent implements OnInit {
     const idMatiere = this.secondFormGroup.get('idMatiere').value;
     const remarque = this.thirdFormGroup.get('remarque').value;
     if (!libelle || !dateDeRendu || !idMatiere) return;
-
-    // console.log('CREATE new assignment, affichage des données ');
-    // console.log('nomAssignment', libelle);
-    // console.log('dateDeRendu', dateDeRendu);
-    // console.log('matiere', idMatiere);
-    // console.log('remarque', remarque);
     const currentUser = getUserViaToken();
     let newAssignment = new Assignment();
     newAssignment.id = Math.round(Math.random() * 10000000);
     newAssignment.idAuteur = currentUser.idUser;
     newAssignment.idMatiere = idMatiere;
     newAssignment.libelle = libelle;
-    newAssignment.dateRendu = dateDeRendu; //NEED FORMATTER?
+    newAssignment.dateRendu = dateDeRendu;
     newAssignment.note = 0;
     newAssignment.rq = remarque ?? '';
     newAssignment.rendu = false;
-    console.log('assignment object', newAssignment);
-    console.log('END CREATE new assignment');
-
     this.assignmentsService
       .addAssignment(newAssignment)
       .subscribe((reponse) => {
-        console.log(reponse.message);
         this.router.navigate(['/home']);
       });
   }

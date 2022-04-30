@@ -47,7 +47,7 @@ export class EditAssignmentComponent implements OnInit {
       this.matieres = list;
     });
     const id = +this.route.snapshot.params['id'];
-    
+
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
       if (!assignment) return;
       if(assignment){
@@ -58,13 +58,6 @@ export class EditAssignmentComponent implements OnInit {
         this.matiereSelected = this.assignment.idMatiere;
         this.remarque = this.assignment.rq;
       }
-      // this.assignment =  assignment ? assignment[0] : null;;
-      // // Pour pré-remplir le formulaire
-      // this.nomAssignment = assignment.libelle;
-      // this.dateDeRendu = assignment.dateRendu;
-      // if(this.note) this.note = assignment.note;
-      // this.matiereSelected = assignment.idMatiere;
-      // this.remarque = assignment.rq;
     });
 
   }

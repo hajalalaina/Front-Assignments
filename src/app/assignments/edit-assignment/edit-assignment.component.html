@@ -1,13 +1,15 @@
 <div class="bg-yellow-500 min-h-[100vh] flex justify-center">
   <div
-    class=" p-2 py-2 px-3 text-sm shadow-lg shadow-indigo-500/40 focus:outline-none container m-auto max-w-xl bg-white"
+    class="rounded-md p-2 py-2 px-3 text-sm shadow-lg shadow-indigo-500/40 focus:outline-none container m-auto max-w-xl bg-white"
     *ngIf="assignment"
   >
-    <div class="text-2xl">Edition de l'assignment {{ assignment.libelle }}</div>
+    <div class="text-2xl flex justify-center p-2">
+      <p>Edition de l'assignment {{ assignment.libelle }}</p>
+    </div>
     <mat-divider></mat-divider>
     <form
       ngForm
-      class="form"
+      class="form px-4"
       style="margin-top: 36px"
       #formupdate
       (submit)="onSaveAssignment(); formupdate.reset()"
@@ -74,9 +76,7 @@
 
       <mat-error *ngIf="erreur != ''">{{ erreur }}</mat-error>
       <button
-        mat-raised-button
-        color="primary"
-        class="mt-4"
+        class="text-sm font-medium rounded-md mt-4 bg-[#000B39] text-white py-3 my-4 shadow-lg shadow-black/20"
         [disabled]="!nomAssignment || !dateDeRendu || !matiereSelected"
       >
         Sauver

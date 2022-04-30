@@ -46,7 +46,6 @@ export class AssignmentsComponent implements OnInit {
   }
   // appelé après le constructeur et AVANT l'affichage du composant
   ngOnInit(): void {
-    console.log("Dans ngOnInit, appelé avant l'affichage");
     this.getAssignments();
   }
   sortAssignments(assignments: Assignment[]) {
@@ -58,7 +57,6 @@ export class AssignmentsComponent implements OnInit {
     this.assignmentsService
       .getAssignments(this.page, this.limit)
       .subscribe((reponse) => {
-        console.log('données arrivées');
         this.assignments = reponse.docs;
         this.sortAssignments(this.assignments);
         this.page = reponse.page;
@@ -72,10 +70,8 @@ export class AssignmentsComponent implements OnInit {
         this.totalDocs = reponse.totalDocs;
       });
 
-    console.log("Après l'appel au service");
   }
   onPageEvent(event: PageEvent) {
-    console.log(event);
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
     this.getAssignments();

@@ -47,16 +47,4 @@ export class AppComponent implements OnInit{
     this.islogged = false;
     this.router.navigate(['/login']);
   }
-  // genererDonneesDeTest() {
-  //   //this.assignmentsService.peuplerBD();
-  //   this.assignmentsService.peuplerBDAvecForkJoin().subscribe(() => {
-  //     console.log(
-  //       'TOUS LES AJOUTS ONT ETE FAITS, ON PEUT RE-AFFICHER LA LISTE'
-  //     );
-  //     // replaceUrl = true = force le refresh, même si
-  //     // on est déjà sur la page d’accueil
-  //     // Marche plus avec la dernière version d’angular
-  //     this.router.navigate(['/home'], { replaceUrl: true });
-  //   });
-  // }
 }
