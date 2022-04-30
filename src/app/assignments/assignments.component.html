@@ -19,17 +19,16 @@
       >
         <div class="flex">
           <div
-            class="bg-green-500 p-2 text-xs rounded-[10px] text-white font-medium"
+            class="bg-green-500 p-2 ml-3 text-xs rounded-[10px] text-white font-medium"
           >
             Rendered
           </div>
         </div>
-        <div class="p-4">
+        <div class="p-4 flex justify-center">
           <img class="h-[200px]" src="../../assets/image/ok.jpg" />
         </div>
         <div class="content-scroll p-4">
           <a
-            class=""
             *ngFor="let assignment of assignmentsRendu"
             (click)="openModal(assignment.id)"
           >
@@ -82,50 +81,60 @@
         </div>
       </div>
       <div
-        class="w-[30%] bg-white rounded-md p-2 py-2 px-3 text-sm font-semibold shadow-lg shadow-indigo-500/40 focus:outline-none"
+        class="font-normal w-[30%] bg-white rounded-md p-2 py-2 px-3 text-sm shadow-lg shadow-indigo-500/40 focus:outline-none"
       >
         <div class="flex">
           <div
-            class="bg-red-500 p-2 text-xs rounded-[10px] text-white font-medium"
+            class="bg-red-500 p-2  ml-3 text-xs rounded-[10px] text-white font-medium"
           >
             Not Rendered
           </div>
         </div>
-        <div class="p-4">
+        <div class="p-4 flex justify-center">
           <img
             class="h-[200px]"
             src="../../assets/image/137-1379308_website-work-in-progress.png"
           />
         </div>
-        <div class="content-scroll">
-          <a class="card-link" *ngFor="let assignment of assignmentsNonRendu">
-            <div class="flex example-card">
+        <div class="content-scroll p-4">
+          <a
+            *ngFor="let assignment of assignmentsNonRendu"
+            (click)="openModal(assignment.id)"
+          >
+            <div
+              class="default-shadow flex bg-[#EBECF0] rounded-md my-2 p-2 gap-x-2"
+            >
               <div>
                 <img
-                  class="w-[100px] h-[100px]"
+                  class="w-[100px] h-[100px] rounded-[10px]"
                   src="{{ assignment.matiere[0].image }}"
                 />
               </div>
               <div class="list-info">
-                <mat-card-title>{{ assignment.libelle }}</mat-card-title>
-                <mat-card-content class="content-assignment">
-                  <div class="icon-item">
-                    <i-feather name="book-open" class="icon"></i-feather
-                    ><span class="content-item">{{
+                <mat-card-title class="text-black w-full text-lg">{{
+                  assignment.libelle
+                }}</mat-card-title>
+                <mat-card-content
+                  class="mt-[7px] flex flex-wrap flex-row content-assignment"
+                >
+                  <div class="w-1/2 icon-item">
+                    <i-feather name="book-open" class="icon"></i-feather>
+                    <span class="content-item">{{
                       assignment.matiere[0].libelle
                     }}</span>
                   </div>
-                  <div class="icon-item">
-                    <i-feather name="user" class="icon"></i-feather
-                    ><span class="content-item">
-                      {{ assignment.auteur[0].nom }}</span
-                    >
-                  </div>
-                  <div class="icon-item">
+                  <div
+                    style="padding-left: 10px !important"
+                    class="w-1/2 rounded-[10px] icon-item bg-blue-300 text-black text-[10px]"
+                  >
                     <i-feather name="clock" class="icon"></i-feather
                     ><span class="content-item">{{
                       assignment.dateRendu | date: "dd/mm/yy"
                     }}</span>
+                  </div>
+                  <div class="w-1/2 icon-item">
+                    <i-feather name="user" class="icon"></i-feather
+                    ><span> {{ assignment.auteur[0].nom }}</span>
                   </div>
                 </mat-card-content>
               </div>
