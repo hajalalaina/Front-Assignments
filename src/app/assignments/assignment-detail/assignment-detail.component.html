@@ -1,9 +1,21 @@
 <mat-card *ngIf="assignmentTransmis">
-  <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
-  <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date:"dd/MM/yy"}}</mat-card-subtitle>
+  <mat-card-title>{{assignmentTransmis.libelle}}</mat-card-title>
+  <mat-card-subtitle>{{assignmentTransmis.dateRendu | date:"dd/MM/yy"}}</mat-card-subtitle>
+  <mat-card-content>
+    <p>
+      Remarques: {{assignmentTransmis.rq}}
+    </p>
+    <p *ngIf="assignmentTransmis.rendu">
+      Note:  {{assignmentTransmis.note}}
+    </p>
+    <p>
+      Status: {{assignmentTransmis.rendu ? "Rendu" : "Non rendu"}}
+    </p>
+  </mat-card-content>
   <div id="bottom">
-    <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">Rendu</mat-checkbox>
+   
     <button mat-stroked-button color="primary" (click)="onClickEdit()" [disabled]="!isLoggedIn()">EDIT</button>
     <button mat-raised-button color="warn" (click)="onDelete()" [disabled]="!isLoggedIn()">DELETE</button>
   </div>
+  <p *ngIf="erreurDetail !=''" >{{erreurDetail}}</p>
 </mat-card>

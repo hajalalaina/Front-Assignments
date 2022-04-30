@@ -6,7 +6,6 @@ import { Directive, ElementRef } from '@angular/core';
 export class NonRenduDirective {
 
   constructor(el:ElementRef) {
-    el.nativeElement.style.color = 'red';
-    el.nativeElement.style.border = '2px dashed orange';
+    el.nativeElement.style.backgroundColor = 'red';
   }
 }

@@ -1,5 +1,5 @@
 <div class="container" *ngIf="assignment">
-  <h1>Edition de l'assignment {{assignment.nom}}</h1>
+  <h1>Edition de l'assignment {{assignment.libelle}}</h1>
   <form ngForm class="form" #formupdate (submit)="onSaveAssignment(); formupdate.reset(); ">
     <mat-form-field>
       <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name">
@@ -10,6 +10,29 @@
       </mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Matiere</mat-label>
+      <mat-select [(ngModel)]="matiereSelected" name="mat">
+        <mat-option *ngFor="let mat of matieres" [value]="mat.idMatiere">
+          {{mat.libelle}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Edition de la remarque" [(ngModel)]="remarque" name="remarque"></textarea>
+    </mat-form-field>
+ 
+    <mat-form-field>
+      <mat-label>Note</mat-label>
+      <input [(ngModel)]="note" name="note" matInput type="number" class="example-right-align" placeholder="0" min="0" max="20" (input)="rendered()" >
+      <span matSuffix>/20</span>
+      
+    </mat-form-field>
+
+    <mat-checkbox  [checked]="assignment.rendu" (change)="onRenderChecked($event)" #rendu>Rendu</mat-checkbox>
+    <!-- <mat-checkbox  (click)="onRenderChecked()" #rendu>Rendu</mat-checkbox> -->
+
+    <mat-error *ngIf="erreur != ''">{{erreur}}</mat-error>
     <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateDeRendu))">
       Sauver
     </button>

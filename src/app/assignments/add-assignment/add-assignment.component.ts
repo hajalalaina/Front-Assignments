@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
+import { MatieresService } from 'src/app/shared/matieres.service';
+import { getUserViaToken } from '../../utils/token.util';
 import { Assignment } from '../assignment.model';
-
+import { Matiere } from '../matiere.model';
 @Component({
   selector: 'app-add-assignment',
   templateUrl: './add-assignment.component.html',
@@ -10,32 +13,66 @@ import { Assignment } from '../assignment.model';
 })
 export class AddAssignmentComponent implements OnInit {
   // Champ de formulaire
-  nomAssignment!: string;
-  dateDeRendu!: Date;
+  matieres: Matiere[] = [];
+  //stepper
+  isLinear = false;
+  firstFormGroup: any;
+  secondFormGroup: any;
+  thirdFormGroup: any;
 
-  constructor(private assignmentsService:AssignmentsService, private router:Router) {}
+  constructor(
+    private assignmentsService: AssignmentsService,
+    private router: Router,
+    private matieresService: MatieresService,
+    private _formBuilder: FormBuilder
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.matieresService.getMatieres().subscribe((list: Matiere[]) => {
+      this.matieres = list;
+    });
+    this.firstFormGroup = this._formBuilder.group({
+      libelle: ['', Validators.required],
+      dateDeRendu: ['', Validators.required],
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      idMatiere: ['', Validators.required],
+    });
+    this.thirdFormGroup = this._formBuilder.group({
+      remarque: [''],
+    });
+  }
 
   onSubmit() {
-    if((!this.nomAssignment) || (!this.dateDeRendu)) return;
-    console.log(
-      'nom = ' + this.nomAssignment + ' date de rendu = ' + this.dateDeRendu
-    );
+    const libelle = this.firstFormGroup.get('libelle').value;
+    const dateDeRendu = this.firstFormGroup.get('dateDeRendu').value;
+    const idMatiere = this.secondFormGroup.get('idMatiere').value;
+    const remarque = this.thirdFormGroup.get('remarque').value;
+    if (!libelle || !dateDeRendu || !idMatiere) return;
 
+    // console.log('CREATE new assignment, affichage des données ');
+    // console.log('nomAssignment', libelle);
+    // console.log('dateDeRendu', dateDeRendu);
+    // console.log('matiere', idMatiere);
+    // console.log('remarque', remarque);
+    const currentUser = getUserViaToken();
     let newAssignment = new Assignment();
-    newAssignment.id = Math.round(Math.random()*10000000);
-    newAssignment.nom = this.nomAssignment;
-    newAssignment.dateDeRendu = this.dateDeRendu;
+    newAssignment.id = Math.round(Math.random() * 10000000);
+    newAssignment.idAuteur = currentUser.idUser;
+    newAssignment.idMatiere = idMatiere;
+    newAssignment.libelle = libelle;
+    newAssignment.dateRendu = dateDeRendu; //NEED FORMATTER?
+    newAssignment.note = 0;
+    newAssignment.rq = remarque ?? '';
     newAssignment.rendu = false;
+    console.log('assignment object', newAssignment);
+    console.log('END CREATE new assignment');
 
-    this.assignmentsService.addAssignment(newAssignment)
-    .subscribe(reponse => {
-      console.log(reponse.message);
-
-      // il va falloir naviguer (demander au router) d'afficher à nouveau la liste
-      // en gros, demander de naviguer vers /home
-      this.router.navigate(["/home"]);
-    })
+    this.assignmentsService
+      .addAssignment(newAssignment)
+      .subscribe((reponse) => {
+        console.log(reponse.message);
+        this.router.navigate(['/home']);
+      });
   }
 }

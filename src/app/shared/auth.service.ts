@@ -1,31 +1,42 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User } from '../login/user.model';
+import jwt_decode from 'jwt-decode';
+import {  Observable } from 'rxjs';
+
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   loggedIn = false;
+  url = 'http://localhost:8010/api/users/login';
+  token: string = '';
 
-  logIn(login:string, password:string) {
-    // normalement il faudrait envoyer une requête sur un web service, passer le login et le password
-    // et recevoir un token d'authentification, etc. etc.
+  constructor(private http: HttpClient) {}
 
-    // pour le moment, si on appelle cette méthode, on ne vérifie rien et on se loggue
-    this.loggedIn = true;
+  logIn(login: string, password: string):Observable<User>  {
+    const body = {
+      nom: login,
+      mdp: password,
+    };
+    const callApi = this.http.post<User>(this.url, body);
+    return callApi;
   }
 
   logOut() {
-    this.loggedIn = false;
+    localStorage.removeItem('token');
   }
 
   isAdmin() {
-    let isUserAdmin = new Promise((resolve, reject) => {
-      resolve(this.loggedIn);
-    });
-    //return this.loggedIn;
-    return isUserAdmin;
+    const token = localStorage.getItem('token');
+    if (token) {
+      const tokenValue: any = jwt_decode(token);
+      if (tokenValue.user.role == 1) {
+        console.log('guard auth', tokenValue.user);
+        return true;
+      }
+    }
+    return false;
   }
-
-  // isAdmin().then(admin => { if(admin) { console.log("L'utilisateur est administrateur"); }})
-
-  constructor() { }
 }

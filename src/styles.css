@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 20px; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 20px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+@font-face {
+  font-family: "Candy";
+  src: local("Candy"), url(./assets/fonts/Septacharge-jELZv.ttf) format("truetype");
+}
