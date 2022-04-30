@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { Assignment } from '../assignments/assignment.model';
 import { LoggingService } from './logging.service';
 
@@ -17,7 +18,8 @@ export class AssignmentsService {
     this.loggingService.setNiveauTrace(2);
   }
 
-  url = 'http://localhost:8010/api/assignments';
+  // url = 'http://localhost:8010/api/assignments';
+  url = environment.api + '/api/assignments';
 
   getAssignments(page: number, limit: number): Observable<any> {
     // en réalité, bientôt au lieu de renvoyer un tableau codé en dur,
