@@ -1,32 +1,43 @@
 <<<<<<< HEAD
 # AssignmentApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.5.
+Il s'agit d'un projet de gestion de devoir
 
-## Development server
+### Membres du groupes:</br>
+  #### 13- RAHARISON Hajalalaina
+  #### 22-  RAOELIJAONA Mitia Ny Soa
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-# MBDS_Madagscar2021-2022Front
-=======
-# TP-Angular
+## I- <ins>Fonctionnalités</ins>
+  ### 1-<ins>Login</ins>
+   Pour pouvoir naviguer dans le site, il faut d'abord se loguer<br />
+   <ins>Role</ins>: les utilisateurs pourront effectuer toutes les opération à part la modification et la suppression qui sont réservées à l'administrateur
+  
+  ### 2-<ins>Devoir (Assignments)<ins>
+  Cette fonctionnalité permet aux utilisateurs de consulter la liste des devoirs, d'en créer et de les modifier 
+  
+  ## II- <ins>Fonctionnement</ins>
+  ### Pré-equis
+  #### npm version : >= 8.0.0. Pour l'installer , lancez la commande:
+         install -g npm@[version >= 8.0.0]
+  #### node version : >= 16.10.0. Pour l'installer , lancez la commande:
+          nvm install [version>=16.10.0]
+          nvm use [version>=16.10.0]
+  ### Login
+  Pour se connecter autant qu'<mark>Admin</mark> :</br>
+  nom: Borden Antonietti</br>
+  mdp: 101</br>
+  
+  Pour se connecter autant que <mark>simple utilisateur</mark>: </br>
+  nom: Vita</br>
+  mdp: Vita
+  
+  ### Lancer le projet localement
+        npm install
+        ng serve
+   Naviguer sur localhost:4200
+  
+  ### Consulter le site web:
+  <mark>https://front-assignments.herokuapp.com/</mark>
+  
+ 
 >>>>>>> 2e3550fc565b718254f3bed163625bddccb8a04b
