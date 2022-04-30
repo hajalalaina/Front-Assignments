@@ -30,7 +30,7 @@
     </mat-form-field>
 
     <mat-checkbox  [checked]="assignment.rendu" (change)="onRenderChecked($event)" #rendu>Rendu</mat-checkbox>
-    <!-- <mat-checkbox  (click)="onRenderChecked()" #rendu>Rendu</mat-checkbox> -->
+   
 
     <mat-error *ngIf="erreur != ''">{{erreur}}</mat-error>
     <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateDeRendu))">

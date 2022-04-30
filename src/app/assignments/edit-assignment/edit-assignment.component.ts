@@ -15,7 +15,7 @@ import { Matiere } from '../matiere.model';
 export class EditAssignmentComponent implements OnInit {
   @ViewChild('rendu') renderElement!: MatCheckbox;
 
-  assignment!: Assignment | undefined;
+  assignment!: Assignment | null;
   nomAssignment!: string;
   dateDeRendu!: Date;
   note: number | undefined;
@@ -50,13 +50,21 @@ export class EditAssignmentComponent implements OnInit {
     
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
       if (!assignment) return;
-      this.assignment = assignment;
-      // Pour pré-remplir le formulaire
-      this.nomAssignment = assignment.libelle;
-      this.dateDeRendu = assignment.dateRendu;
-      if(this.note) this.note = assignment.note;
-      this.matiereSelected = assignment.idMatiere;
-      this.remarque = assignment.rq;
+      if(assignment){
+        this.assignment = assignment[0];
+        this.nomAssignment = this.assignment.libelle;
+        this.dateDeRendu = this.assignment.dateRendu;
+        this.note = this.assignment.note;
+        this.matiereSelected = this.assignment.idMatiere;
+        this.remarque = this.assignment.rq;
+      }
+      // this.assignment =  assignment ? assignment[0] : null;;
+      // // Pour pré-remplir le formulaire
+      // this.nomAssignment = assignment.libelle;
+      // this.dateDeRendu = assignment.dateRendu;
+      // if(this.note) this.note = assignment.note;
+      // this.matiereSelected = assignment.idMatiere;
+      // this.remarque = assignment.rq;
     });
 
   }

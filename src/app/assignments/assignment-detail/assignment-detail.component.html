@@ -1,4 +1,4 @@
-<mat-card *ngIf="assignmentTransmis">
+<!-- <mat-card *ngIf="assignmentTransmisTransmis">
   <mat-card-title>{{assignmentTransmis.libelle}}</mat-card-title>
   <mat-card-subtitle>{{assignmentTransmis.dateRendu | date:"dd/MM/yy"}}</mat-card-subtitle>
   <mat-card-content>
@@ -18,4 +18,29 @@
     <button mat-raised-button color="warn" (click)="onDelete()" [disabled]="!isLoggedIn()">DELETE</button>
   </div>
   <p *ngIf="erreurDetail !=''" >{{erreurDetail}}</p>
+</mat-card> -->
+<mat-card *ngIf="assignmentTransmis" class="card-detail">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <img src="{{ assignmentTransmis.auteur[0].image }}" />
+    </div>
+    <mat-card-title>{{ assignmentTransmis.auteur[0].nom }}</mat-card-title>
+    <mat-card-subtitle>Etudiant (e)</mat-card-subtitle>
+  </mat-card-header>
+  <img
+    mat-card-image
+    src="{{ assignmentTransmis.matiere[0].image }}"
+    alt="{{ assignmentTransmis.libelle }}"
+  />
+  <mat-card-content>
+    <p>
+      The Shiba Inu is the smallest of the six original and distinct spitz
+      breeds of dog from Japan. A small, agile dog that copes very well with
+      mountainous terrain, the Shiba Inu was originally bred for hunting.
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
 </mat-card>

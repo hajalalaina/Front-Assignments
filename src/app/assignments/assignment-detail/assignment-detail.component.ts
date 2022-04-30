@@ -10,19 +10,20 @@ import { Assignment } from '../assignment.model';
   styleUrls: ['./assignment-detail.component.css'],
 })
 export class AssignmentDetailComponent implements OnInit {
-  assignmentTransmis?: Assignment;
-  erreurDetail?: "";
+  assignmentTransmis?: Assignment | null;
+  erreurDetail?: '';
   constructor(
     private assignmentsService: AssignmentsService,
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     // on va récupérer l'id dans l'URL,
     // le + permet de forcer en number (au lieu de string)
     const id = +this.route.snapshot.params['id'];
+    console.log('id : ' + id);
     this.getAssignment(id);
   }
 
@@ -31,13 +32,11 @@ export class AssignmentDetailComponent implements OnInit {
     // l'assignment qui a cet id !
     this.assignmentsService.getAssignment(id).subscribe(
       (assignment) => {
-        this.assignmentTransmis = assignment;
-        if(this.assignmentTransmis) console.log("note: ", this.assignmentTransmis.note);
+        this.assignmentTransmis = assignment ? assignment[0] : null;
       },
       (error) => {
         this.router.navigate(['/home']);
       }
-
     );
   }
 
@@ -57,7 +56,7 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
   isLoggedIn() {
-    console.log("isAdmin : " + this.authService.isAdmin());
+    console.log('isAdmin : ' + this.authService.isAdmin());
     return this.authService.isAdmin();
   }
 }
