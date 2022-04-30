@@ -1,5 +1,60 @@
 #bottom {
-  display:flex;
+  display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+/* ASSIGNMENT BANNER */
+.assignment-banner {
+  background: url("../../../assets/image/What-is-it-like-working-in-IT.jpg")
+    no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+  height: 361px;
+  position: relative;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.assignment-banner:before {
+  content: "";
+  display: block;
+  -webkit-filter: blur(1px) brightness(0.5);
+  -moz-filter: blur(1px) brightness(0.5);
+  -ms-filter: blur(1px) brightness(0.5);
+  -o-filter: blur(1px) brightness(0.5);
+  filter: blur(1px) brightness(0.5);
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: inherit;
+  z-index: 0;
+}
+
+.assignment-banner-content {
+  position: relative;
+  z-index: 10;
+  padding-top: 50px;
+}
+
+.banner-title {
+  font-family: arial;
+  font-size: 3em;
+  color: gold;
+  font-weight: 900;
+  margin: 20px;
+}
+
+.banner-text {
+  font-family: arial;
+  font-size: 2em;
+  color: white;
+  font-weight: 100;
+  padding: 20px;
+  border: 1px solid gray;
+  display: inline-block;
+  width: 40%;
 }

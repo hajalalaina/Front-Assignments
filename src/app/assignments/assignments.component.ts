@@ -23,6 +23,7 @@ export class AssignmentsComponent implements OnInit {
   hasNextPage = true;
   prevPage = 1;
   nextPage = 2;
+  totalDocs = 0;
   isShow: boolean = false;
 
   constructor(
@@ -68,6 +69,7 @@ export class AssignmentsComponent implements OnInit {
         this.hasNextPage = reponse.hasNextPage;
         this.prevPage = reponse.prevPage;
         this.nextPage = reponse.nextPage;
+        this.totalDocs = reponse.totalDocs;
       });
 
     console.log("Après l'appel au service");

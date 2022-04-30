@@ -21,18 +21,19 @@ export class AssignmentDetailComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    public dialogRef: MatDialogRef<AssignmentDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    // public dialogRef: MatDialogRef<AssignmentDetailComponent>,
+    // @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 
   ngOnInit(): void {
     // on va récupérer l'id dans l'URL,
     // le + permet de forcer en number (au lieu de string)
-    // const id = +this.route.snapshot.params['id'];
-    this.getAssignment(this.data.id);
+    const id = +this.route.snapshot.params['id'];
+    // this.getAssignment(this.data.id);
+    this.getAssignment(id);
   }
   onNoClick(): void {
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
   getAssignment(id: number) {
     // on demande au service de gestion des assignment,
@@ -42,6 +43,7 @@ export class AssignmentDetailComponent implements OnInit {
         this.assignmentTransmis = assignment ? assignment[0] : null;
       },
       (error) => {
+        console.log(error);
         this.router.navigate(['/home']);
       }
     );
