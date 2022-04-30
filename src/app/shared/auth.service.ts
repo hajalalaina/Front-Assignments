@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import jwt_decode from 'jwt-decode';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { User } from '../login/user.model';
 
 @Injectable({
@@ -11,7 +11,6 @@ import { User } from '../login/user.model';
 export class AuthService {
   loggedIn = false;
   url = environment.api + '/api/users/login';
-  // url = 'http://localhost:8010/api/users/login';
   token: string = '';
 
   constructor(private http: HttpClient) {}
